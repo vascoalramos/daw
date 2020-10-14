@@ -1,0 +1,29 @@
+.jumbotron {
+	background-image: url("https://ichef.bbci.co.uk/news/976/cpsprodpb/12A9B/production/_111434467_gettyimages-1143489763.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center top;
+	width: 100%;
+	height: 25rem;
+}
+
+.slider-block {
+	height: 350px;
+	display: inline-block;
+}
+
+.carousel {
+	height: 100%;
+}
+
+.carousel .carousel-inner {
+	height: 100%;
+}
+
+.carousel .carousel-item {
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+	width: 100%;
+	height: 100%;
+}
