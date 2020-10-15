@@ -1,3 +1,12 @@
+section {
+	margin-bottom: 2em;
+}
+
+p {
+	text-align: justify;
+	text-justify: inter-word;
+}
+
 .jumbotron {
 	background-image: url("../img/cat.jpg");
 	background-repeat: no-repeat;
@@ -7,11 +16,12 @@
 	height: 25rem;
 }
 
-section {
-	margin-bottom: 2em;
+.card {
+	margin-bottom: 1em;
 }
 
-section>p {
-	text-align: justify;
-	text-justify: inter-word;
+@media (min-width:768px) {
+	.card {
+		width: 18rem;
+	}
 }
