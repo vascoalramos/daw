@@ -1,5 +1,5 @@
 .jumbotron {
-	background-image: url("https://ichef.bbci.co.uk/news/976/cpsprodpb/12A9B/production/_111434467_gettyimages-1143489763.jpg");
+	background-image: url("../img/cat.jpg");
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center top;
@@ -7,23 +7,11 @@
 	height: 25rem;
 }
 
-.slider-block {
-	height: 350px;
-	display: inline-block;
+section {
+	margin-bottom: 2em;
 }
 
-.carousel {
-	height: 100%;
-}
-
-.carousel .carousel-inner {
-	height: 100%;
-}
-
-.carousel .carousel-item {
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center center;
-	width: 100%;
-	height: 100%;
+section>p {
+	text-align: justify;
+	text-justify: inter-word;
 }
