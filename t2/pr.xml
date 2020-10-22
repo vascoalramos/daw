@@ -20,7 +20,14 @@
         </tElement>
     </team>
     <abstract>
-        <paragraph></paragraph>
+        <paragraph>
+            O XML, definido e validado pelo DTD, permite dispor de facilidades acrescidas no tratamento de informação de uma forma <bold>standardizada e partilhável</bold>.
+            Estas são, além de outras evidentes vantagens, as que abrem caminho a uma mais que provável evolução desta tecnologia nos círculos comerciais e de investigação.
+        </paragraph>
+        <paragraph>
+            O presente trabalho pretende definir uma <italic>estrutura expedita e funcional</italic>, passível de ser aplicada a um <underline>trabalho descritivo</underline>, como por exemplo uma tese.
+            Não é objectivo do trabalho criar uma implementação sistemática de todos os objectos possíveis, mas sim criar algumas utilizações mais comuns para exemplificar a potencialidade destas linguagens.
+        </paragraph>
     </abstract>
     <deliverables>
         <link>
