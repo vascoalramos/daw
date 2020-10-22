@@ -13,7 +13,6 @@
 <!ATTLIST url
     type (internal|external) "external">
 
-
 <!ELEMENT team (tElement|(tElement, tElement)|(tElement, tElement, tElement)) >
 <!ELEMENT tElement (name, email, url) >
 <!ATTLIST tElement
