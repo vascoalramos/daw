@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pr SYSTEM "pr.dtd">
+<pr>
+    <metadata>
+        <keyName>taw_t2</keyName>
+        <title>Construção de um DTD e respetivo XML</title>
+        <subtitle>Relatório produzido no contexto dos trabalhos práticos da cadeira de DAW do MEI 2020/21</subtitle>
+        <beginDate>22 de Outubro de 2020</beginDate>
+        <endDate>25 de Outubro de 2020</endDate>
+        <supervisor>
+            <name>José Carlos Ramalho</name>
+            <url>http://www4.di.uminho.pt/~jcr</url>
+        </supervisor>
+    </metadata>
+    <team>
+        <tElement id="PG42852">
+            <name>Vasco António Lopes Ramos</name>
+            <email>vascoalramos@gmail.com</email>
+            <url>https://vascoalramos.me</url>
+        </tElement>
+    </team>
+    <abstract>
+        <paragraph></paragraph>
+    </abstract>
+    <deliverables>
+        <link>
+            <name>PR Document Type Definition (DTD)</name>
+            <url>pr.xml</url>
+        </link>
+    </deliverables>
+</pr>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT pr (metadata, team, abstract, deliverables) >
+
+<!ELEMENT metadata (keyName, title, subtitle?, beginDate, endDate, supervisor) >
+<!ELEMENT keyName (#PCDATA) >
+<!ELEMENT title (#PCDATA) >
+<!ELEMENT beginDate (#PCDATA) >
+<!ELEMENT endDate (#PCDATA) >
+<!ELEMENT subtitle (#PCDATA) >
+<!ELEMENT supervisor (name, url) >
+<!ELEMENT name (#PCDATA) >
+<!ELEMENT url (#PCDATA) >
+<!ATTLIST url
+    type (internal|external) "external">
+
+
+<!ELEMENT team (tElement|(tElement, tElement)|(tElement, tElement, tElement)) >
+<!ELEMENT tElement (name, email, url) >
+<!ATTLIST tElement
+    id ID #REQUIRED>
+<!ELEMENT email (#PCDATA) >
+    
+<!ELEMENT abstract (paragraph)+ >
+<!ELEMENT paragraph (#PCDATA|italic|bold|underline|url)* >
+<!ELEMENT italic (#PCDATA) >
+<!ELEMENT bold (#PCDATA) >
+<!ELEMENT underline (#PCDATA) >
+
+<!ELEMENT deliverables (link)+ >
+<!ELEMENT link (name,url) >
