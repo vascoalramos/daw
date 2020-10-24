@@ -9,9 +9,6 @@
 <!ELEMENT subtitle (#PCDATA) >
 <!ELEMENT supervisor (name, url) >
 <!ELEMENT name (#PCDATA) >
-<!ELEMENT url (#PCDATA) >
-<!ATTLIST url
-    type (internal|external) "external">
 
 <!ELEMENT team (tElement|(tElement, tElement)|(tElement, tElement, tElement)) >
 <!ELEMENT tElement (name, email, url) >
@@ -21,9 +18,12 @@
     
 <!ELEMENT abstract (paragraph)+ >
 <!ELEMENT paragraph (#PCDATA|italic|bold|underline|url)* >
-<!ELEMENT italic (#PCDATA) >
-<!ELEMENT bold (#PCDATA) >
-<!ELEMENT underline (#PCDATA) >
+<!ELEMENT italic (#PCDATA|bold|underline|url)* >
+<!ELEMENT bold (#PCDATA|italic|underline|url)* >
+<!ELEMENT underline (#PCDATA|italic|bold|url)* >
+<!ELEMENT url (#PCDATA|italic|bold|underline)* >
+<!ATTLIST url
+    type (internal|external) "external">
 
 <!ELEMENT deliverables (link)+ >
 <!ELEMENT link (name,url) >
