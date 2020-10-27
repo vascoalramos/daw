@@ -7,23 +7,23 @@
 <!ELEMENT beginDate (#PCDATA) >
 <!ELEMENT endDate (#PCDATA) >
 <!ELEMENT subtitle (#PCDATA) >
-<!ELEMENT supervisor (name, url) >
+<!ELEMENT supervisor (link) >
 <!ELEMENT name (#PCDATA) >
 
 <!ELEMENT team (tElement|(tElement, tElement)|(tElement, tElement, tElement)) >
-<!ELEMENT tElement (name, email, url) >
+<!ELEMENT tElement (name, email, link?) >
 <!ATTLIST tElement
     id ID #REQUIRED>
 <!ELEMENT email (#PCDATA) >
     
 <!ELEMENT abstract (paragraph)+ >
-<!ELEMENT paragraph (#PCDATA|italic|bold|underline|url)* >
-<!ELEMENT italic (#PCDATA|bold|underline|url)* >
-<!ELEMENT bold (#PCDATA|italic|underline|url)* >
-<!ELEMENT underline (#PCDATA|italic|bold|url)* >
-<!ELEMENT url (#PCDATA|italic|bold|underline)* >
-<!ATTLIST url
+<!ELEMENT paragraph (#PCDATA|italic|bold|underline|link)* >
+<!ELEMENT italic (#PCDATA|bold|underline|link)* >
+<!ELEMENT bold (#PCDATA|italic|underline|link)* >
+<!ELEMENT underline (#PCDATA|italic|bold|link)* >
+<!ELEMENT link (#PCDATA|italic|bold|underline)* >
+<!ATTLIST link
+    href CDATA #REQUIRED
     type (internal|external) "external">
 
 <!ELEMENT deliverables (link)+ >
-<!ELEMENT link (name,url) >
