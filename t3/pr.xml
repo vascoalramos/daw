@@ -20,23 +20,23 @@
     </team>
     <abstract>
         <paragraph>
-            O DTD permite, de uma forma simples e clara, definir um esquema de anotação próprio para uma linguagem específica.
-            Por outro lado, o XML permite efetivamente fazer uso da linguagem definida e utilizá-a para o armazenamento e comunicação de informação.
-            Contudo, este não garante que a informação respeite, total ou parcialmente o DTD.
+            Sendo que o objetivo deste trabalho prático era <underline>criar um <italic>website</italic> através de um <italic>dataset</italic> (em <bold>XML</bold>), usando <bold>XSL</bold></underline>, a primeira coisa que fiz foi olhar para
+            o <italic>dataset</italic> no seu todo, perceber a sua formologia e interpretar o significado de cada campo. Numa fase inicial também criei um esboço da estrutra que queria para o <italic>website</italic>.
         </paragraph>
         <paragraph>
-            Com isto em vista, a utilização conjunta do XML e do DTD apresenta vantagens enormes, pois, permite tirar partido mão só das vantagens anteriores, mas também fazer uma validação à cabeça do XML tendo em conta o DTD.
-            Para além disto, o XML, definido e validado pelo DTD, permite dispor de facilidades acrescidas no tratamento de informação de uma forma <bold>standardizada e partilhável</bold>.
+            O segundo passo foi começar a transformação do <italic>dataset</italic> para um <italic>website</italic>. A página inicial contém um indíce de todos os locais ornadas por ordem alfabética crescente dos nomes e cada página (dedicada a um local)
+            permite voltar à página inicial e ir para o local anterior ou para o local seguinte. 
         </paragraph>
         <paragraph>
-            O presente trabalho pretende definir uma <italic>estrutura expedita e funcional</italic>, passível de ser aplicada a um <underline>trabalho descritivo</underline>, como por exemplo uma tese.
-            Não é objetivo do trabalho criar uma implementação sistemática de todos os objetos possíveis, mas sim criar algumas utilizações mais comuns para exemplificar a potencialidade destas linguagens.
+            Para além da estrutra base já referida, cada página dedicada a um local tem informação como o autor daquela entrada e data de registo, referências de bibliografia, curiosidades sobre o local, detalhes de localização, entre outros aspetos.
         </paragraph>
         <paragraph>
-            A definição da estrutura desejada é o DTD e a sua instância em XML é o próprio relatório. 
+            Por fim, é de referir que o <italic>website</italic> foi desenvolvido com recurso a <link href="https://getbootstrap.com">Bootstrap</link>.
         </paragraph>
     </abstract>
     <deliverables>
-        <link href="pr.dtd">PR Document Type Definition (DTD)</link>
+        <link href="arq.xml">Arquiossitio [XML]</link>
+        <link href="arq.xsl">Templates de conversão ([XSL]</link>
+        <link href="site/index.html">Website (home) [HTML]</link>
     </deliverables>
 </pr>
