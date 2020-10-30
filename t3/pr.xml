@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pr SYSTEM "pr.dtd">
+<pr>
+    <metadata>
+        <keyName>taw_t3</keyName>
+        <title>Criação de um Web Site dinamicamente através de um dataset (XML)L</title>
+        <subtitle>Relatório produzido no contexto dos trabalhos práticos da cadeira de DAW do MEI 2020/21</subtitle>
+        <beginDate>29 de Outubro de 2020</beginDate>
+        <endDate>03 de Novembro de 2020</endDate>
+        <supervisor>
+            <link href="http://www4.di.uminho.pt/~jcr">José Carlos Ramalho</link>
+        </supervisor>
+    </metadata>
+    <team>
+        <tElement id="PG42852">
+            <name>Vasco António Lopes Ramos</name>
+            <email>vascoalramos@gmail.com</email>
+            <link href="https://vascoalramos.me"></link>
+        </tElement>
+    </team>
+    <abstract>
+        <paragraph>
+            O DTD permite, de uma forma simples e clara, definir um esquema de anotação próprio para uma linguagem específica.
+            Por outro lado, o XML permite efetivamente fazer uso da linguagem definida e utilizá-a para o armazenamento e comunicação de informação.
+            Contudo, este não garante que a informação respeite, total ou parcialmente o DTD.
+        </paragraph>
+        <paragraph>
+            Com isto em vista, a utilização conjunta do XML e do DTD apresenta vantagens enormes, pois, permite tirar partido mão só das vantagens anteriores, mas também fazer uma validação à cabeça do XML tendo em conta o DTD.
+            Para além disto, o XML, definido e validado pelo DTD, permite dispor de facilidades acrescidas no tratamento de informação de uma forma <bold>standardizada e partilhável</bold>.
+        </paragraph>
+        <paragraph>
+            O presente trabalho pretende definir uma <italic>estrutura expedita e funcional</italic>, passível de ser aplicada a um <underline>trabalho descritivo</underline>, como por exemplo uma tese.
+            Não é objetivo do trabalho criar uma implementação sistemática de todos os objetos possíveis, mas sim criar algumas utilizações mais comuns para exemplificar a potencialidade destas linguagens.
+        </paragraph>
+        <paragraph>
+            A definição da estrutura desejada é o DTD e a sua instância em XML é o próprio relatório. 
+        </paragraph>
+    </abstract>
+    <deliverables>
+        <link href="pr.dtd">PR Document Type Definition (DTD)</link>
+    </deliverables>
+</pr>

@@ -28,7 +28,7 @@
                 </head>
                 <body>
                     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-                        <a class="navbar-brand" href="#"><i class="fas fa-cat"></i> Arqueossitio</a>
+                        <a class="navbar-brand" href="#"><i class="fas fa-atlas"></i> Arqueossitio</a>
                     </nav>
                     
                     <main role="main">
@@ -66,8 +66,8 @@
         <xsl:apply-templates/>  <!-- Para criar as outras páginas -->
     </xsl:template>
     
-    <!-- Templates de Índice ............................................... -->
     
+    <!-- Templates de Índice ............................................... -->
     <xsl:template match="ARQELEM" mode="indice">
         <li>
             <a name="i{generate-id()}"/>
@@ -77,8 +77,8 @@
         </li>
     </xsl:template>
     
-    <!-- Templates para o conteúdo ......................................... -->
     
+    <!-- Templates para o conteúdo ......................................... -->
     <xsl:template match="ARQELEM">
         <xsl:result-document href="site/{generate-id()}.html">
             <html>
@@ -98,7 +98,7 @@
                 </head>
                 <body>
                     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-                        <a class="navbar-brand" href="#"><i class="fas fa-cat"></i> Arqueossitio</a>
+                        <a class="navbar-brand" href="#"><i class="fas fa-atlas"></i> Arqueossitio</a>
                     </nav>
                     
                     <main role="main">
@@ -108,17 +108,27 @@
                                 
                                 <p><b>Autor: </b> <xsl:value-of select="AUTOR"/></p>
                                 <p><b>Data: </b> <xsl:value-of select="DATA"/></p>
-                                
                             </div>
                             
-                            <p><b>Lugar: </b> <xsl:value-of select="LUGAR"/></p>
-                            <p><b>Freguesia: </b> <xsl:value-of select="FREGUE"/></p>
-                            <p><b>Concelho: </b> <xsl:value-of select="CONCEL"/></p><br/>
-                            <p><b>Latitude: </b> <xsl:value-of select="LATITU"/></p>
-                            <p><b>Longitude: </b> <xsl:value-of select="LONGIT"/></p>
+                            <div class="card bg-light mb-3">
+                                <div class="card-body">
+                                    <div class="row" style="text-align:center">
+                                        <div class="col-4"><p class="mb-0"><b>Lugar: </b> <xsl:value-of select="LUGAR"/></p></div>
+                                        <div class="col-4"><p class="mb-0"><b>Freguesia: </b> <xsl:value-of select="FREGUE"/></p></div>
+                                        <div class="col-4"><p class="mb-0"><b>Concelho: </b> <xsl:value-of select="CONCEL"/></p></div>
+                                    </div>
+                                </div>
+                            </div>
                             
-                            <div>
-                                <h3>Bibliografia</h3>
+                            <xsl:apply-templates select="ACESSO"/>
+                            <xsl:apply-templates select="QUADRO"/>
+                            <xsl:apply-templates select="DESARQ"/>
+                            <xsl:apply-templates select="TRAARQ"/>
+                            <xsl:apply-templates select="DEPOSI"/>
+                            <xsl:apply-templates select="INTERE"/>
+                            
+                            <div id="bib" class="mt-4">
+                                <h4>Bibliografia</h4>
                                 <ul>
                                     <xsl:apply-templates select=".//BIBLIO"/>
                                 </ul>
@@ -167,6 +177,64 @@
         <li>
             <xsl:value-of select="."/>
         </li>
+    </xsl:template>
+    
+    <xsl:template match="ACESSO">
+        <div id="acesso" class="mt-4 text-justify">
+            <h4>Modo de Acesso</h4>
+            <p>
+                <xsl:apply-templates/>
+            </p>
+        </div>
+    </xsl:template>
+    
+    <xsl:template match="QUADRO">
+        <div id="enquadramento" class="mt-4 text-justify">
+            <h4>Enquadramento Geográfico</h4>
+            <p>
+                <xsl:apply-templates/>
+            </p>
+        </div>
+    </xsl:template>
+    
+    <xsl:template match="DESARQ">
+        <div id="desc-arq" class="mt-4 text-justify">
+            <h4>Descoberta arqueológico</h4>
+            <p>
+                <xsl:apply-templates/>
+            </p>
+        </div>
+    </xsl:template>
+    
+    <xsl:template match="TRAARQ">
+        <div id="trab-arq" class="mt-4 text-justify">
+            <h4>Trabalho arqueológico</h4>
+            <p>
+                <xsl:apply-templates/>
+            </p>
+        </div>
+    </xsl:template>
+    
+    <xsl:template match="DEPOSI">
+        <div id="deposit-arq" class="mt-4 text-justify">
+            <h4>Depósito arqueológico</h4>
+            <p>
+                <xsl:apply-templates/>
+            </p>
+        </div>
+    </xsl:template>
+    
+    <xsl:template match="INTERE">
+        <div id="deposit-arq" class="mt-4 text-justify">
+            <h4>Curiosidades</h4>
+            <p>
+                <xsl:apply-templates/>
+            </p>
+        </div>
+    </xsl:template>
+    
+    <xsl:template match="LIGA">
+        <b><xsl:value-of select="."/></b>
     </xsl:template>
     
 </xsl:stylesheet>
