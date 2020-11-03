@@ -37,7 +37,7 @@
                             <h3>Índice de Títulos</h3>
                             <ul>
                                 <xsl:apply-templates select="//ARQELEM" mode="indice">
-                                    <xsl:sort select="IDENTI"></xsl:sort>
+                                    <xsl:sort select="IDENTI" lang="pt"></xsl:sort>
                                 </xsl:apply-templates>
                             </ul>
                         </div>
