@@ -94,7 +94,7 @@
                         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous"/>
                     
                     <!-- Custom CSS -->
-                    <link rel="stylesheet" href="static/css/mine.css"/>
+                    <link rel="stylesheet" href="../static/css/mine.css"/>
                 </head>
                 <body>
                     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">

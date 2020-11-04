@@ -3,7 +3,6 @@ const fs = require("fs");
 
 const aux = require("./myModule");
 
-// TODO: compor servidor de ficheiros de estaticos
 // TODO: pensar em edge situations que possam estoirar o servidor
 // TODO: limpar o código
 
@@ -24,7 +23,7 @@ http.createServer((req, res) => {
 			res.write(data);
 			res.end();
 		});
-	} else if (req.url.match(/^\/arqs\/static\//)) {
+	} else if (req.url.match(/^\/static\//)) {
 		fs.readFile(`../site/static/css/mine.css`, (err, data) => {
 			if (err) {
 				res.writeHead(404);
