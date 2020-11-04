@@ -24,7 +24,9 @@ http.createServer((req, res) => {
 			res.end();
 		});
 	} else if (req.url.match(/^\/static\//)) {
-		fs.readFile(`../site/static/css/mine.css`, (err, data) => {
+		let resource = req.url.slice(8);
+
+		fs.readFile(`../site/static/${resource}`, (err, data) => {
 			if (err) {
 				res.writeHead(404);
 				res.end();
