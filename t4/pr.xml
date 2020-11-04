@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pr SYSTEM "pr.dtd">
+<pr>
+    <meta>
+        <key>taw_t4</key>
+        <title>Criação de um Server em Node.js para servir ficheiros</title>
+        <subtitle>Relatório produzido no contexto dos trabalhos práticos da cadeira de DAW do MEI 2020/21</subtitle>
+        <bdate>04 de Novembro de 2020</bdate>
+        <edate>10 de Novembro de 2020</edate>
+        <supervisor url="http://www4.di.uminho.pt/~jcr">José Carlos Ramalho</supervisor>
+    </meta>
+    <team>
+        <member id="PG42852">
+            <name>Vasco António Lopes Ramos</name>
+            <email>vascoalramos@gmail.com</email>
+            <link url="https://vascoalramos.me"></link>
+        </member>
+    </team>
+    <abstract>
+        <p>
+            Sendo que o objetivo deste trabalho prático era <u>criar um <i>website</i> através de um <i>dataset</i> (em <b>XML</b>), usando <b>XSL</b></u>, a primeira coisa que fiz foi olhar para
+            o <i>dataset</i> no seu todo, perceber a sua formologia e interpretar o significado de cada campo. Numa fase inicial também criei um esboço da estrutra que queria para o <i>website</i>.
+        </p>
+        <p>
+            O segundo passo foi começar a transformação do <i>dataset</i> para um <i>website</i>. A página inicial contém um indíce de todos os locais ornados por ordem alfabética crescente dos nomes e cada página (dedicada a um local)
+            permite voltar à página inicial e ir para o local anterior ou para o local seguinte. 
+        </p>
+        <p>
+            Para além da estrutra base já referida, cada página dedicada a um local tem informação como o autor daquela entrada e data de registo, referências de bibliografia, curiosidades sobre o local, detalhes de localização, entre outros aspetos.
+        </p>
+        <p>
+            Por fim, é de referir que o <i>website</i> foi desenvolvido com recurso a <link url="https://getbootstrap.com">Bootstrap</link>.
+        </p>
+    </abstract>
+    <deliverables>
+        <link url="server/server.js">Servidor em Node.js</link>
+        <link url="server/myModule.js">Módulo próprio a usar no servidor node</link>
+        <link url="./arq.xml">Arquiossitio [XML]</link>
+        <link url="./arq.xsl">Templates de conversão ([XSL]</link>
+        <link url="site/index.html">Website (home) [HTML]</link>
+        
+    </deliverables>
+</pr>
