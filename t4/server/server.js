@@ -3,6 +3,10 @@ const fs = require("fs");
 
 const aux = require("./myModule");
 
+// TODO: compor servidor de ficheiros de estaticos
+// TODO: pensar em edge situations que possam estoirar o servidor
+// TODO: limpar o código
+
 http.createServer((req, res) => {
 	console.log(`${req.method} ${req.url} ${aux.myDateTime()}`);
 
