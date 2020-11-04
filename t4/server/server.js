@@ -3,8 +3,7 @@ const fs = require("fs");
 
 const aux = require("./myModule");
 
-// TODO: pensar em edge situations que possam estoirar o servidor
-// TODO: limpar o código
+// TODO: pensar em edge situations que possam estoirar o servidor (?)
 
 http.createServer((req, res) => {
 	console.log(`${req.method} ${req.url} ${aux.myDateTime()}`);
