@@ -18,18 +18,13 @@
     </team>
     <abstract>
         <p>
-            Sendo que o objetivo deste trabalho prático era <u>criar um <i>website</i> através de um <i>dataset</i> (em <b>XML</b>), usando <b>XSL</b></u>, a primeira coisa que fiz foi olhar para
-            o <i>dataset</i> no seu todo, perceber a sua formologia e interpretar o significado de cada campo. Numa fase inicial também criei um esboço da estrutra que queria para o <i>website</i>.
+            O quarto trabalho prático de casa tinha como objetivo criar um servidor em <i>node.js</i> que servisse ficheiros. Assim, como ambiente de teste, continuou-se o exemplo do trabalho prático 3 com o dataset de arqueossítios.
+            Deste modo, a abordagem foi, alterar a construção das páginas HTML representativas de cada arqueossítio para estarem no seguinte padrão <b>arq[id].html</b>, sendo [id] substitúido por um identificador único inteiro
+            (exemplos: arq1.html, arq2.html, ...). Por outro lado, o índicie ao invés de ter a ligação para o ficheiro físico fazia o pedido ao servidor.
         </p>
         <p>
-            O segundo passo foi começar a transformação do <i>dataset</i> para um <i>website</i>. A página inicial contém um indíce de todos os locais ornados por ordem alfabética crescente dos nomes e cada página (dedicada a um local)
-            permite voltar à página inicial e ir para o local anterior ou para o local seguinte. 
-        </p>
-        <p>
-            Para além da estrutra base já referida, cada página dedicada a um local tem informação como o autor daquela entrada e data de registo, referências de bibliografia, curiosidades sobre o local, detalhes de localização, entre outros aspetos.
-        </p>
-        <p>
-            Por fim, é de referir que o <i>website</i> foi desenvolvido com recurso a <link url="https://getbootstrap.com">Bootstrap</link>.
+            Fazendo o paralelismo com o servidor exemplo de ficheiros, desenvolvido na aula, no contexto do trabalho prático foi necessário dar mais atenção à robustez do mesmo: o servidor tem de ser capaz de responder com os ficheiros
+            estáticos necessários à página, tem de ser capaz de tratar e recuperar de erros assoicados à leitura de ficheiros do <i>filesystem</i>, e tem também de ser capaz de perceber quais são os pedidos ais quais consegue ou não responder.
         </p>
     </abstract>
     <deliverables>
@@ -38,6 +33,5 @@
         <link url="./arq.xml">Arquiossitio [XML]</link>
         <link url="./arq.xsl">Templates de conversão ([XSL]</link>
         <link url="site/index.html">Website (home) [HTML]</link>
-        
     </deliverables>
 </pr>
