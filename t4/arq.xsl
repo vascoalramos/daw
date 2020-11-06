@@ -24,7 +24,7 @@
                         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous"/>
                     
                     <!-- Custom CSS -->
-                    <link rel="stylesheet" href="static/css/mine.css"/>
+                    <link rel="stylesheet" href="http://localhost:7777/static/css/mine.css"/>
                 </head>
                 <body>
                     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -94,7 +94,7 @@
                         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous"/>
                     
                     <!-- Custom CSS -->
-                    <link rel="stylesheet" href="../static/css/mine.css"/>
+                    <link rel="stylesheet" href="http://localhost:7777/static/css/mine.css"/>
                 </head>
                 <body>
                     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -137,15 +137,15 @@
                             <nav class="d-flex justify-content-center" aria-label="Page navigation example">
                                 <ul class="pagination">
                                     <li class="page-item">
-                                        <!-- FIX: Has no reguard to sorting -->
-                                        <a class="page-link" href="{generate-id(./preceding-sibling::*[1])}.html"><i class="fas fa-arrow-left"></i> Anterior</a>
+
+                                        <a class="page-link" href="http://localhost:7777/arqs/arq{count(preceding-sibling::*)}"><i class="fas fa-arrow-left"></i> Anterior</a>
                                     </li>
                                     <li class="page-item">
-                                        <a class="page-link" href="index.html#i{generate-id()}">Voltar ao Índice</a>
+                                        <a class="page-link" href="http://localhost:7777">Voltar ao Índice</a>
                                     </li>
                                     <li class="page-item">
                                         <!-- FIX: Has no reguard to sorting -->
-                                        <a class="page-link" href="{generate-id(./following-sibling::*[1])}.html"><i class="fas fa-arrow-right"></i> Próximo</a>
+                                        <a class="page-link" href="http://localhost:7777/arqs/arq{count(preceding-sibling::*) + 2}"><i class="fas fa-arrow-right"></i> Próximo</a>
                                     </li>
                                 </ul>
                             </nav>
