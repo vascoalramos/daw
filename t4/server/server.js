@@ -10,7 +10,7 @@ http.createServer((req, res) => {
 		fs.readFile(`../site/index.html`, (err, data) => {
 			// get index page
 			if (err) {
-				res.writeHead(404);
+				res.writeHead(500);
 				res.end();
 				return;
 			}
@@ -25,7 +25,7 @@ http.createServer((req, res) => {
 
 		fs.readFile(`../site/arq${num}.html`, (err, data) => {
 			if (err) {
-				res.writeHead(404);
+				res.writeHead(500);
 				res.end();
 				return;
 			}
