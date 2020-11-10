@@ -2,13 +2,6 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="2.0">
     
-    <xsl:variable name="sortedItems">
-        <xsl:for-each select="//ARQELEM">
-            <xsl:sort select="IDENTI"/>
-            <xsl:copy-of select="." />
-        </xsl:for-each>
-    </xsl:variable>
-    
     <xsl:template match="/">
         <xsl:result-document href="site/index.html">
             <html>
@@ -64,14 +57,16 @@
         </xsl:result-document>  
         
         <!-- Para criar as outras páginas -->
-        <xsl:apply-templates/>
+        <xsl:apply-templates select="//ARQELEM">
+            <xsl:sort select="IDENTI" lang="pt"></xsl:sort>
+        </xsl:apply-templates>
     </xsl:template>
     
     
     <!-- Templates de Índice ............................................... -->
     <xsl:template match="ARQELEM" mode="indice">
         <li>
-            <a href="/arqs/arq{count(preceding-sibling::*)+1}">
+            <a href="/arqs/arq{position()}">
                 <xsl:value-of select="IDENTI"/>
             </a>
         </li>
@@ -80,7 +75,7 @@
     
     <!-- Templates para o conteúdo ......................................... -->
     <xsl:template match="ARQELEM">
-        <xsl:result-document href="site/arq{count(preceding-sibling::*)+1}.html">
+        <xsl:result-document href="site/arq{position()}.html">
             <html>
                 <head>
                     <meta charset="utf-8"/>
@@ -138,14 +133,14 @@
                                 <ul class="pagination">
                                     <li class="page-item">
 
-                                        <a class="page-link" href="/arqs/arq{count(preceding-sibling::*)}"><i class="fas fa-arrow-left"></i> Anterior</a>
+                                        <a class="page-link" href="/arqs/arq{position() - 1}"><i class="fas fa-arrow-left"></i> Anterior</a>
                                     </li>
                                     <li class="page-item">
                                         <a class="page-link" href="/">Voltar ao Índice</a>
                                     </li>
                                     <li class="page-item">
                                         <!-- FIX: Has no reguard to sorting -->
-                                        <a class="page-link" href="/arqs/arq{count(preceding-sibling::*) + 2}"><i class="fas fa-arrow-right"></i> Próximo</a>
+                                        <a class="page-link" href="/arqs/arq{position() + 1}"><i class="fas fa-arrow-right"></i> Próximo</a>
                                     </li>
                                 </ul>
                             </nav>
