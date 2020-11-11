@@ -9,12 +9,12 @@ http.createServer((req, res) => {
 	if (req.method === "GET") {
 		if (req.url === "/") {
 			showIndex(res);
-		} else if (req.url === "/alunos") {
-			listStudents(res);
-		} else if (req.url === "/cursos") {
-			listCourses(res);
-		} else if (req.url === "/instrumentos") {
-			listInstruments(res);
+		} else if (req.url.match(/^\/alunos(\?.+)?$/)) {
+			listStudents(res, req.url);
+		} else if (req.url.match(/^\/cursos(\?.+)?$/)) {
+			listCourses(res, req.url);
+		} else if (req.url.match(/^\/instrumentos(\?.+)?$/)) {
+			listInstruments(res, req.url);
 		} else if (req.url.match(/\/alunos\/\w+/)) {
 			let studentId = req.url.slice(8);
 			getStudentInfo(res, studentId);
@@ -39,30 +39,44 @@ const showIndex = (res) => {
 	res.write("<h2>Escola de Música</h2>");
 	res.write(`
                 <ul>
-                    <li><a href="/alunos">Lista de alunos</a></li>
-                    <li><a href="/cursos">Lista de cursos</a></li>
+                    <li><a href="/alunos?_page=1&_limit=25">Lista de alunos</a></li>
+                    <li><a href="/cursos?_page=1&_limit=15">Lista de cursos</a></li>
                     <li><a href="/instrumentos">Lista de instrumentos</a></li>
                 </ul>
             `);
 	res.end();
 };
 
-const listStudents = (res) => {
+const listStudents = (res, queryStr) => {
 	axios
-		.get("/alunos")
+		.get(queryStr)
 		.then((resp) => {
 			let students = resp.data;
 
 			res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
 			res.write("<h2>Escola de Música: Lista de Alunos</h2>");
-			res.write("<ul>");
 
+			res.write("<ul>");
 			students.forEach((s) => {
 				res.write(`<li><a href="/alunos/${s.id}">${s.id} - ${s.nome}</a></li>`);
 			});
-
 			res.write("</ul>");
+
 			res.write(`<address>[<a href="/">Voltar à Home</a>]</address>`);
+
+			if (resp.headers.link) {
+				let links = resp.headers.link.replace(/ /g, "").split(",");
+
+				res.write("<address>");
+				links.forEach((link) => {
+					let elements = link.replace("<", "").replace(">", "").split(";");
+					let url = elements[0].split("3000/")[1];
+					let name = elements[1].replace(/"/g, "").split("=")[1];
+					res.write(`[<a href="/${url}">${name}</a>] `);
+				});
+				res.write("</address>");
+			}
+
 			res.end();
 		})
 		.catch((err) => {
@@ -70,9 +84,9 @@ const listStudents = (res) => {
 		});
 };
 
-const listCourses = (res) => {
+const listCourses = (res, queryStr) => {
 	axios
-		.get("/cursos?_page=1")
+		.get(queryStr)
 		.then((resp) => {
 			let courses = resp.data;
 
@@ -85,18 +99,20 @@ const listCourses = (res) => {
 			});
 			res.write("</ul>");
 
-			let links = resp.headers.link.replace(/ /g, "").split(",");
-
 			res.write(`<address>[<a href="/">Voltar à Home</a>]</address>`);
 
-			res.write("<address>");
-			links.forEach((link) => {
-				let elements = link.replace("<", "").replace(">", "").split(";");
-				let url = elements[0].split("3000/")[1];
-				let name = elements[1].replace(/"/g, "").split("=")[1];
-				res.write(`[<a href="/${url}">${name}</a>] `);
-			});
-			res.write("</address>");
+			if (resp.headers.link) {
+				let links = resp.headers.link.replace(/ /g, "").split(",");
+
+				res.write("<address>");
+				links.forEach((link) => {
+					let elements = link.replace("<", "").replace(">", "").split(";");
+					let url = elements[0].split("3000/")[1];
+					let name = elements[1].replace(/"/g, "").split("=")[1];
+					res.write(`[<a href="/${url}">${name}</a>] `);
+				});
+				res.write("</address>");
+			}
 
 			res.end();
 		})
@@ -105,22 +121,36 @@ const listCourses = (res) => {
 		});
 };
 
-const listInstruments = (res) => {
+const listInstruments = (res, queryStr) => {
 	axios
-		.get("/instrumentos")
+		.get(queryStr)
 		.then((resp) => {
 			let instruments = resp.data;
 
 			res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
 			res.write("<h2>Escola de Música: Lista de Instrumentos</h2>");
+
 			res.write("<ul>");
-
 			instruments.forEach((i) => {
-				res.write(`<li>${i.id} - ${i["#text"]}</li>`);
+				res.write(`<li><a href="/instrumentos/${i.id}">${i.id} - ${i["#text"]}</a></li>`);
 			});
-
 			res.write("</ul>");
+
 			res.write(`<address>[<a href="/">Voltar à Home</a>]</address>`);
+
+			if (resp.headers.link) {
+				let links = resp.headers.link.replace(/ /g, "").split(",");
+
+				res.write("<address>");
+				links.forEach((link) => {
+					let elements = link.replace("<", "").replace(">", "").split(";");
+					let url = elements[0].split("3000/")[1];
+					let name = elements[1].replace(/"/g, "").split("=")[1];
+					res.write(`[<a href="/${url}">${name}</a>] `);
+				});
+				res.write("</address>");
+			}
+
 			res.end();
 		})
 		.catch((err) => {
@@ -144,7 +174,7 @@ const getStudentInfo = (res, studentId) => {
 			res.write(`<p><b>ANO DO CURSO: </b>${student.anoCurso}<p>`);
 			res.write(`<p><b>INSTRUMENTO: </b>${student.instrumento}<p>`);
 
-			res.write(`<address>[<a href="/alunos">Voltar à lista de alunos</a>]</address>`);
+			res.write(`<address>[<a href="/alunos?_page=1&_limit=25">Voltar à lista de alunos</a>]</address>`);
 
 			res.end();
 		})
@@ -175,7 +205,7 @@ const getCourseInfo = (res, courseId) => {
 				`<p><b>INSTRUMENTO: </b><a href="/instrumentos/${course.instrumento.id}">${course.instrumento["#text"]}</a><p>`,
 			);
 
-			res.write(`<address>[<a href="/">Voltar à lista de cursos</a>]</address>`);
+			res.write(`<address>[<a href="/cursos?_page=1&_limit=15">Voltar à lista de cursos</a>]</address>`);
 			res.end();
 		})
 		.catch((err) => {
@@ -201,7 +231,7 @@ const getInstrumentInfo = (res, instrumentId) => {
 			res.write(`<p><b>ID: </b>${instrument.id}<p>`);
 			res.write(`<p><b>NOME: </b>${instrument["#text"]}<p>`);
 
-			res.write(`<address>[<a href="/">Voltar à lista de instrumentos</a>]</address>`);
+			res.write(`<address>[<a href="/instrumentos">Voltar à lista de instrumentos</a>]</address>`);
 			res.end();
 		})
 		.catch((err) => {
