@@ -25,11 +25,14 @@ http.createServer((req, res) => {
 		} else if (req.url === "/instrumentos") {
 			listInstruments(res);
 		} else if (req.url.match(/\/alunos\/\w+/)) {
-			const studentId = req.url.slice(8);
+			let studentId = req.url.slice(8);
 			getStudentInfo(res, studentId);
 		} else if (req.url.match(/\/cursos\/\w+/)) {
-			const courseId = req.url.slice(8);
+			let courseId = req.url.slice(8);
 			getCourseInfo(res, courseId);
+		} else if (req.url.match(/\/instrumentos\/\w+/)) {
+			let instrumentId = req.url.slice(14);
+			getInstrumentInfo(res, instrumentId);
 		} else {
 			requestNotSupported(req, res);
 		}
@@ -129,6 +132,12 @@ const getStudentInfo = (res, studentId) => {
 			res.end();
 		})
 		.catch((err) => {
+			let statusCode = err.response.status;
+
+			if (statusCode === 404) {
+				request404(res, "aluno", studentId);
+			}
+
 			console.log(`Erro na obtenção do aluno: ${err}`);
 		});
 };
@@ -140,25 +149,63 @@ const getCourseInfo = (res, courseId) => {
 			let course = resp.data;
 
 			res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
-			res.write(`<h2>Escola de Música: Aluno ${course.id}</h2>`);
+			res.write(`<h2>Escola de Música: Curso ${course.id}</h2>`);
 
 			res.write(`<p><b>ID: </b>${course.id}<p>`);
 			res.write(`<p><b>DESIGNAÇÃO: </b>${course.designacao}<p>`);
 			res.write(`<p><b>DURAÇÂO: </b>${course.duracao} anos<p>`);
 			res.write(
-				`<p><b>INSTRUMENTO: </b><a href="instrumentos/${course.instrumento.id}">${course.instrumento["#text"]}</a><p>`,
+				`<p><b>INSTRUMENTO: </b><a href="/instrumentos/${course.instrumento.id}">${course.instrumento["#text"]}</a><p>`,
 			);
 
 			res.write(`<address>[<a href="/">Voltar à Home</a>]</address>`);
 			res.end();
 		})
 		.catch((err) => {
+			let statusCode = err.response.status;
+
+			if (statusCode === 404) {
+				request404(res, "curso", courseId);
+			}
+
 			console.log(`Erro na obtenção do curso: ${err}`);
+		});
+};
+
+const getInstrumentInfo = (res, instrumentId) => {
+	axios
+		.get(`/instrumentos/${instrumentId}`)
+		.then((resp) => {
+			let instrument = resp.data;
+
+			res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+			res.write(`<h2>Escola de Música: Instrumento ${instrument.id}</h2>`);
+
+			res.write(`<p><b>ID: </b>${instrument.id}<p>`);
+			res.write(`<p><b>NOME: </b>${instrument["#text"]}<p>`);
+
+			res.write(`<address>[<a href="/">Voltar à Home</a>]</address>`);
+			res.end();
+		})
+		.catch((err) => {
+			let statusCode = err.response.status;
+
+			if (statusCode === 404) {
+				request404(res, "instrumento", instrumentId);
+			}
+
+			console.log(`Erro na obtenção do instrumento: ${err}`);
 		});
 };
 
 const requestNotSupported = (req, res) => {
 	res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
 	res.write(`<p>Pedido não suportado: ${req.method} ${req.url}</p>`);
+	res.end();
+};
+
+const request404 = (res, element, id) => {
+	res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+	res.write(`<p>O ${element} com o ID: ${id} não existe!`);
 	res.end();
 };
