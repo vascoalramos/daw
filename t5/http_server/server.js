@@ -72,6 +72,12 @@ const listInstruments = (res) => {
 		});
 };
 
+const requestNotSupported = (res) => {
+	res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+	res.write(`<p>Pedido não suportado: ${req.method} ${req.url}</p>`);
+	res.end();
+};
+
 http.createServer((req, res) => {
 	console.log(`${req.method} ${req.url}`);
 
@@ -94,14 +100,10 @@ http.createServer((req, res) => {
 		} else if (req.url === "/instrumentos") {
 			listInstruments(res);
 		} else {
-			res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
-			res.write(`<p>Pedido não suportado: ${req.method} ${req.url}</p>`);
-			res.end();
+			requestNotSupported(res);
 		}
 	} else {
-		res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
-		res.write(`<p>Pedido não suportado: ${req.method} ${req.url}</p>`);
-		res.end();
+		requestNotSupported(res);
 	}
 }).listen(4000);
 
