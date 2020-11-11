@@ -38,12 +38,12 @@ const showIndex = (res) => {
 	res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
 	res.write("<h2>Escola de Música</h2>");
 	res.write(`
-                <ul>
-                    <li><a href="/alunos?_page=1&_limit=25">Lista de alunos</a></li>
-                    <li><a href="/cursos?_page=1&_limit=15">Lista de cursos</a></li>
-                    <li><a href="/instrumentos">Lista de instrumentos</a></li>
-                </ul>
-            `);
+		<ul>
+			<li><a href="/alunos?_page=1&_limit=25">Lista de alunos</a></li>
+			<li><a href="/cursos?_page=1&_limit=15">Lista de cursos</a></li>
+			<li><a href="/instrumentos">Lista de instrumentos</a></li>
+		</ul>
+	`);
 	res.end();
 };
 
