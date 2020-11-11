@@ -1,5 +1,6 @@
 const http = require("http");
 const axios = require("axios");
+const { link } = require("fs");
 
 axios.defaults.baseURL = "http://localhost:3000";
 
@@ -68,20 +69,32 @@ const listStudents = (res) => {
 
 const listCourses = (res) => {
 	axios
-		.get("/cursos")
+		.get("/cursos?_page=1")
 		.then((resp) => {
 			let courses = resp.data;
 
 			res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
 			res.write("<h2>Escola de Música: Lista de Cursos</h2>");
+
 			res.write("<ul>");
-
 			courses.forEach((c) => {
-				res.write(`<li><a href="cursos/${c.id}">${c.id} - ${c.designacao}<a></li>`);
+				res.write(`<li><a href="/cursos/${c.id}">${c.id} - ${c.designacao}<a></li>`);
 			});
-
 			res.write("</ul>");
+
+			let links = resp.headers.link.replace(/ /g, "").split(",");
+
 			res.write(`<address>[<a href="/">Voltar à Home</a>]</address>`);
+
+			res.write("<address>");
+			links.forEach((link) => {
+				let elements = link.replace("<", "").replace(">", "").split(";");
+				let url = elements[0].split("3000/")[1];
+				let name = elements[1].replace(/"/g, "").split("=")[1];
+				res.write(`[<a href="/${url}">${name}</a>] `);
+			});
+			res.write("</address>");
+
 			res.end();
 		})
 		.catch((err) => {
