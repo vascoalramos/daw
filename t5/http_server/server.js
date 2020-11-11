@@ -9,16 +9,7 @@ http.createServer((req, res) => {
 
 	if (req.method === "GET") {
 		if (req.url === "/") {
-			res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
-			res.write("<h2>Escola de Música</h2>");
-			res.write(`
-                <ul>
-                    <li><a href="/alunos">Lista de alunos</a></li>
-                    <li><a href="/cursos">Lista de cursos</a></li>
-                    <li><a href="/instrumentos">Lista de instrumentos</a></li>
-                </ul>
-            `);
-			res.end();
+			showIndex(res);
 		} else if (req.url === "/alunos") {
 			listStudents(res);
 		} else if (req.url === "/cursos") {
@@ -43,6 +34,19 @@ http.createServer((req, res) => {
 }).listen(4000);
 
 console.log("Server listening at port 4000...");
+
+const showIndex = (res) => {
+	res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+	res.write("<h2>Escola de Música</h2>");
+	res.write(`
+                <ul>
+                    <li><a href="/alunos">Lista de alunos</a></li>
+                    <li><a href="/cursos">Lista de cursos</a></li>
+                    <li><a href="/instrumentos">Lista de instrumentos</a></li>
+                </ul>
+            `);
+	res.end();
+};
 
 const listStudents = (res) => {
 	axios
