@@ -128,7 +128,8 @@ const getStudentInfo = (res, studentId) => {
 			res.write(`<p><b>ANO DO CURSO: </b>${student.anoCurso}<p>`);
 			res.write(`<p><b>INSTRUMENTO: </b>${student.instrumento}<p>`);
 
-			res.write(`<address>[<a href="/">Voltar à Home</a>]</address>`);
+			res.write(`<address>[<a href="/alunos">Voltar à lista de alunos</a>]</address>`);
+
 			res.end();
 		})
 		.catch((err) => {
@@ -158,7 +159,7 @@ const getCourseInfo = (res, courseId) => {
 				`<p><b>INSTRUMENTO: </b><a href="/instrumentos/${course.instrumento.id}">${course.instrumento["#text"]}</a><p>`,
 			);
 
-			res.write(`<address>[<a href="/">Voltar à Home</a>]</address>`);
+			res.write(`<address>[<a href="/">Voltar à lista de cursos</a>]</address>`);
 			res.end();
 		})
 		.catch((err) => {
@@ -184,7 +185,7 @@ const getInstrumentInfo = (res, instrumentId) => {
 			res.write(`<p><b>ID: </b>${instrument.id}<p>`);
 			res.write(`<p><b>NOME: </b>${instrument["#text"]}<p>`);
 
-			res.write(`<address>[<a href="/">Voltar à Home</a>]</address>`);
+			res.write(`<address>[<a href="/">Voltar à lista de instrumentos</a>]</address>`);
 			res.end();
 		})
 		.catch((err) => {
