@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pr SYSTEM "pr.dtd">
+<pr>
+    <meta>
+        <key>daw_t5</key>
+        <title>Criação de um Server em Node.js para servir conteúdo a partir de uma REST API</title>
+        <subtitle>Relatório produzido no contexto dos trabalhos práticos da cadeira de DAW do MEI 2020/21</subtitle>
+        <bdate>11 de Novembro de 2020</bdate>
+        <edate>17 de Novembro de 2020</edate>
+        <supervisor url="http://www4.di.uminho.pt/~jcr">José Carlos Ramalho</supervisor>
+    </meta>
+    <team>
+        <member id="PG42852">
+            <name>Vasco António Lopes Ramos</name>
+            <email>vascoalramos@gmail.com</email>
+            <link url="https://vascoalramos.me"></link>
+        </member>
+    </team>
+    <abstract>
+        <p>
+            O quinto trabalho prático de casa tinha como objetivo criar um servidor em <i>Node.js</i> que servisse conteúdo sobre uma escola de música. Para o efeito, prototipou-se uma <i>REST API</i>, através do
+            <i>package <b>json-server</b></i> em <i>Node.js</i>, sobre o dataset fornecido (com as entidades: alunos, cursos e instrumentos) e consultou-se a API sempre que fosse necessário informação.
+        </p>
+        <p>
+            Para o servidor em <i>Node.js</i> comunicar com a <i>REST API</i>, usou-se o <i>package <b>axios</b></i> e aplicou-se também algum CSS e Bootstrap para tornar as páginas apelativas, bem como paginação
+            nas listagens para facilitar a procura de elementos.
+        </p>
+    </abstract>
+    <deliverables>
+        <link url="http_server/server.js">Servidor em Node.js</link>
+        <link url="rest_api/db.json">Base de Dados com o Dataset do TPC</link>
+    </deliverables>
+</pr>
