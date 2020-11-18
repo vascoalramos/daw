@@ -1,0 +1,33 @@
+{
+    "name": "todo-app",
+    "version": "1.0.0",
+    "description": "To-Do Web Application",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js",
+        "develop": "nodemon server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/vascoalramos/daw.git"
+    },
+    "keywords": [
+        "Javascript",
+        "Axios",
+        "Nodemon",
+        "jQuery"
+    ],
+    "author": "Vasco Ramos",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/vascoalramos/daw/issues"
+    },
+    "homepage": "https://github.com/vascoalramos/daw#readme",
+    "devDependencies": {
+        "nodemon": "^2.0.6"
+    },
+    "dependencies": {
+        "axios": "^0.21.0"
+    }
+}
