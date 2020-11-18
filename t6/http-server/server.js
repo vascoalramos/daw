@@ -18,13 +18,41 @@ let server = http.createServer(function (req, res) {
     } else {
         switch (req.method) {
             case "GET":
-                res.writeHead(404, { "Content-Type": "text/html;charset=utf-8" });
+                if (req.url == "/" || req.url == "/tasks") {
+                    axios
+                        .get(`${apiUrl}/tasks`)
+                        .then((response) => {
+                            let tasks = response.data;
+                            console.log(tasks);
+
+                            res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+                            res.write(render.page404());
+                            res.end();
+                        })
+                        .catch(function () {
+                            res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+                            res.write(render.error("Failed to load information about tasks!"));
+                            res.end();
+                        });
+                } else {
+                    res.writeHead(404, { "Content-Type": "text/html; charset=utf-8" });
+                    res.write(render.page404());
+                    res.end();
+                }
+                break;
+            case "POST":
+                res.writeHead(404, { "Content-Type": "text/html; charset=utf-8" });
                 res.write(render.page404());
                 res.end();
                 break;
-            case "POST":
+            case "PUT":
+                res.writeHead(404, { "Content-Type": "text/html; charset=utf-8" });
+                res.write(render.page404());
+                res.end();
+                break;
+            case "DELETE":
                 res.writeHead(404, { "Content-Type": "text/html;charset=utf-8" });
-                res.write("<p>" + req.method + " não suportado neste serviço.</p>");
+                res.write(render.page404());
                 res.end();
                 break;
             default:
