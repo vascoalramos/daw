@@ -9,7 +9,7 @@ exports.init = (title, callback) => {
                 <meta name="author" content="Vasco Ramos">
                 <title>${title}</title>
 
-                <link rel="icon" href="favicon.png"/>
+                <link rel="icon" href="public/img/favicon.png"/>
 
                 <!-- Custom CSS -->
                 <link rel="stylesheet" href="public/css/mine.css">
@@ -20,7 +20,7 @@ exports.init = (title, callback) => {
             </head>
             <body>
                 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-                    <a class="navbar-brand" href="#"><i class="fas fa-cat"></i> To Do</a>
+                    <a class="navbar-brand" href="#"><i class="far fa-check-square"></i> To Do</a>
 
                     <!-- Hamburger menu -->
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
