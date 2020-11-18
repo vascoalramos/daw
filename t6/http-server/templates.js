@@ -1,4 +1,4 @@
-exports.init = (title, callback) => {
+let init = (title, callback) => {
     return `
         <!doctype html>
         <html lang="en">
@@ -44,9 +44,7 @@ exports.init = (title, callback) => {
                 </nav>
 
                 <main role="main">
-                    <div class="container" style="padding-top: 5em;">
-                        ${callback()}
-                    </div>
+                    ${callback()}
                 </main>
 
                 <footer class="container">
@@ -73,25 +71,52 @@ exports.init = (title, callback) => {
 };
 
 exports.page404 = () => {
-    return this.init("404 - To Do App", () => {
+    return init("404 - To Do App", () => {
         return `
-            <h1 style="text-align: center">404 - Current request is not supported!</h1>
+            <div class="container" style="padding-top: 5em;">
+                <h1 style="text-align: center">404 - Current request is not supported!</h1>
+            </div>
         `;
     });
 };
 
 exports.error = (errorMsg) => {
-    return this.init("Error - To Do App", () => {
+    return init("Error - To Do App", () => {
         return `
-        <h2 style="text-align: center">Error: ${errorMsg}</h2> 
+            <div class="container" style="padding-top: 5em;">
+                <h2 style="text-align: center">Error: ${errorMsg}</h2>
+            </div>
         `;
     });
 };
 
-exports.app = () => {
-    return this.init("To Do App", () => {
-        return `
-            <h1 style="text-align: center">404 - Current request is not supported!</h1>
+exports.app = (data) => {
+    return init("To Do App", () => {
+        let html = `
+            <div class="container" style="padding: 5em 10em 0 10em;">
+                <div class="row">
+                    <div class="board-card col-6">
+                        <h3>To Do</h3>
+                        <div class="tasks">
+
         `;
+
+        data.forEach((task) => {
+            html += `
+                            <li>${task.id}</li>
+            `;
+        });
+
+        html += `
+                        </div>
+                    </div>
+                    <div class="board-card col-6">
+                        <h3>Done</h3>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        return html;
     });
 };

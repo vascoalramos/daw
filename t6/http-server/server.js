@@ -3,7 +3,7 @@ const axios = require("axios");
 
 const { isStaticFile, serveStaticFile } = require("./static");
 const render = require("./templates");
-const { parseRequestBody, currentDateTime } = require("./utils");
+const { currentDateTime } = require("./utils");
 
 const serverPort = 7000;
 
@@ -23,10 +23,9 @@ let server = http.createServer(function (req, res) {
                         .get(`${apiUrl}/tasks`)
                         .then((response) => {
                             let tasks = response.data;
-                            console.log(tasks);
 
                             res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
-                            res.write(render.page404());
+                            res.write(render.app(tasks));
                             res.end();
                         })
                         .catch(function () {
