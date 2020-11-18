@@ -1,12 +1,15 @@
 const fs = require("fs");
 
 exports.isStaticFile = (request) => {
-    return /\/w3.css$/.test(request.url) || /\/favicon.png$/.test(request.url) || /\/student.png$/.test(request.url);
+    console.log(/public\/(css|js|img)\/.$/.test(request.url));
+    return /public\/(css|js|img)\/.+$/.test(request.url);
 };
 
 exports.serveStaticFile = (req, res) => {
-    let urlPortions = req.url.split("/");
-    let file = urlPortions[urlPortions.length - 1];
+    let urlPortions = req.url.split("/").slice(-2);
+    let file = urlPortions.join("/");
+
+    console.log(file);
 
     fs.readFile(`public/${file}`, (err, data) => {
         if (err) {

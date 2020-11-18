@@ -2,7 +2,7 @@ const http = require("http");
 const axios = require("axios");
 
 const { isStaticFile, serveStaticFile } = require("./static");
-const {} = require("./templates");
+const render = require("./templates");
 const { parseRequestBody, currentDateTime } = require("./utils");
 
 const serverPort = 7000;
@@ -19,7 +19,7 @@ let server = http.createServer(function (req, res) {
         switch (req.method) {
             case "GET":
                 res.writeHead(404, { "Content-Type": "text/html;charset=utf-8" });
-                res.write("<p>" + req.method + " não suportado neste serviço.</p>");
+                res.write(render.page404());
                 res.end();
                 break;
             case "POST":
@@ -29,7 +29,7 @@ let server = http.createServer(function (req, res) {
                 break;
             default:
                 res.writeHead(404, { "Content-Type": "text/html;charset=utf-8" });
-                res.write("<p>" + req.method + " não suportado neste serviço.</p>");
+                res.write(render.page404());
                 res.end();
         }
     }
