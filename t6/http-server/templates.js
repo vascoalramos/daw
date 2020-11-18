@@ -75,7 +75,7 @@ exports.init = (title, callback) => {
 exports.page404 = () => {
     return this.init("404 - To Do App", () => {
         return `
-            <p>Ola</p>
+            <h1 style="text-align: center">404 - Current request is not supported!</p>
         `;
     });
 };
