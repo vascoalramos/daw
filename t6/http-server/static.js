@@ -5,15 +5,16 @@ exports.isStaticFile = (request) => {
 };
 
 exports.serveStaticFile = (req, res) => {
-    var partes = req.url.split("/");
-    var file = partes[partes.length - 1];
-    fs.readFile(`public/${file}`, (erro, dados) => {
-        if (erro) {
-            console.log("Erro: ficheiro não encontrado " + erro);
+    let urlPortions = req.url.split("/");
+    let file = urlPortions[urlPortions.length - 1];
+
+    fs.readFile(`public/${file}`, (err, data) => {
+        if (err) {
+            console.log(`Error: file not found ${err}`);
             res.statusCode = 404;
             res.end();
         } else {
-            res.end(dados);
+            res.end(data);
         }
     });
 };
