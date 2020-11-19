@@ -78,7 +78,6 @@ let getCategories = () => {
     })
         .done((data) => {
             data.forEach((category) => {
-                console.log(category);
                 $(".dropdown-menu").append(`
                     <a class="dropdown-item" href="tasks?category=${category}">${category}</a>
                 `);
@@ -136,7 +135,6 @@ let deleteTask = (taskId) => {
 let editTask = () => {
     let taskId = $("#edit-task-form").attr("task-id");
     let formData = $("#edit-task-form").serialize();
-    console.log(formData);
 
     $.ajax({
         type: "PUT",
