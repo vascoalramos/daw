@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    getCategories();
+
     $(".check-task-button").click(function () {
         $($(this).children()[0]).toggleClass("fa-square fa-check-square");
     });
@@ -69,6 +71,24 @@ $(document).ready(function () {
     });
 });
 
+let getCategories = () => {
+    $.ajax({
+        type: "GET",
+        url: "/categories",
+    })
+        .done((data) => {
+            data.forEach((category) => {
+                console.log(category);
+                $(".dropdown-menu").append(`
+                    <a class="dropdown-item" href="tasks?category=${category}">${category}</a>
+                `);
+            });
+        })
+        .fail((response) => {
+            console.log(response);
+        });
+};
+
 let createNewTask = () => {
     let formData = $("#new-task-form").serialize();
 
@@ -113,7 +133,7 @@ let deleteTask = (taskId) => {
         });
 };
 
-let editTask = (data) => {
+let editTask = () => {
     let taskId = $("#edit-task-form").attr("task-id");
     let formData = $("#edit-task-form").serialize();
     console.log(formData);

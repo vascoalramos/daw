@@ -2,7 +2,6 @@ const { parse } = require("querystring");
 
 // retrieves info from request body
 exports.parseRequestBody = (request, callback) => {
-    console.log(request.headers["content-type"]);
     if (request.headers["content-type"].split(";")[0] == "application/x-www-form-urlencoded") {
         let body = "";
 

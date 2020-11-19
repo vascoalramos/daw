@@ -38,6 +38,50 @@ let server = http.createServer(function (req, res) {
                             res.write(render.error("Failed to load information about tasks!"));
                             res.end();
                         });
+                } else if (/^\/tasks(\?.+)?$/.test(req.url)) {
+                    let queryStr = req.url.substring(1);
+                    axios
+                        .get(`${apiUrl}/${queryStr}`)
+                        .then((resp) => {
+                            let tasks = resp.data;
+
+                            let data = {
+                                tasksToDo: tasks.filter((task) => task.done === "false"),
+                                tasksDone: tasks.filter((task) => task.done === "true"),
+                            };
+
+                            res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+                            res.write(render.app(data));
+                            res.end();
+                        })
+                        .catch(function () {
+                            res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+                            res.write(render.error("Failed to load information about tasks!"));
+                            res.end();
+                        });
+                } else if (req.url === "/categories") {
+                    axios
+                        .get(`${apiUrl}/tasks`)
+                        .then((resp) => {
+                            let tasks = resp.data;
+
+                            let categories = [
+                                ...new Set(
+                                    tasks.map((task) => {
+                                        return task.category;
+                                    }),
+                                ),
+                            ];
+
+                            res.writeHead(200, { "Content-Type": "text/json; charset=utf-8" });
+                            res.write(JSON.stringify(categories));
+                            res.end();
+                        })
+                        .catch(function () {
+                            res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+                            res.write(render.error("Failed to load information about categories!"));
+                            res.end();
+                        });
                 } else if (/\/tasks\/[0-9]+$/.test(req.url)) {
                     let taskId = req.url.split("/")[2];
                     axios
