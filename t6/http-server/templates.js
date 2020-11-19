@@ -23,7 +23,7 @@ let init = (title, callback) => {
             </head>
             <body>
                 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
-                    <a class="navbar-brand" href="#"><i class="far fa-check-square"></i> To Do</a>
+                    <a class="navbar-brand" href="/tasks"><i class="far fa-check-square"></i> To Do</a>
 
                     <!-- Hamburger menu -->
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
@@ -38,6 +38,7 @@ let init = (title, callback) => {
                                     Categories
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="tasks">All</a>
                                 </div>
                             </li>
                         </ul>
