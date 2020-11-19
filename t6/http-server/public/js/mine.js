@@ -22,11 +22,18 @@ $(document).ready(function () {
         let taskElm = $(event.currentTarget).parent();
         let taskId = $(taskElm).attr("task-id");
 
-        console.log(getTask(taskId));
+        getTask(taskId, (data) => {
+            toggleCheckTask(data, "true");
+        });
     });
 
     $(".task-done .check-task-button").click((event) => {
-        alert("here");
+        let taskElm = $(event.currentTarget).parent();
+        let taskId = $(taskElm).attr("task-id");
+
+        getTask(taskId, (data) => {
+            toggleCheckTask(data, "false");
+        });
     });
 });
 
@@ -48,23 +55,40 @@ let createNewTask = () => {
         });
 };
 
-let getTask = (taskId) => {
-    let data;
-
+let getTask = (taskId, callback) => {
     $.ajax({
         type: "GET",
         url: `/tasks/${taskId}`,
     })
-        .done((resp) => {
-            data = resp.data;
-            $("#newTaskModal").modal("toggle");
+        .done((data) => {
+            callback(data);
+        })
+        .fail((response) => {
+            console.log(response);
+        });
+};
+
+let toggleCheckTask = (data, doneVal) => {
+    data.done = doneVal;
+
+    let formData = Object.keys(data)
+        .map((key) => {
+            return encodeURIComponent(key) + "=" + encodeURIComponent(data[key]);
+        })
+        .join("&");
+
+    $.ajax({
+        type: "PUT",
+        data: formData,
+        url: `/tasks/${data.id}`,
+        processData: false,
+    })
+        .done(() => {
             location.reload();
         })
         .fail((response) => {
             console.log(response);
         });
-
-    return data;
 };
 
 let validateTaskForm = () => {

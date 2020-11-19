@@ -38,6 +38,20 @@ let server = http.createServer(function (req, res) {
                             res.write(render.error("Failed to load information about tasks!"));
                             res.end();
                         });
+                } else if (/\/tasks\/[0-9]+$/.test(req.url)) {
+                    let taskId = req.url.split("/")[2];
+                    axios
+                        .get(`${apiUrl}/tasks/${taskId}`)
+                        .then((resp) => {
+                            res.writeHead(201, { "Content-Type": "application/json; charset=utf-8" });
+                            res.write(JSON.stringify(resp.data));
+                            res.end();
+                        })
+                        .catch(() => {
+                            res.writeHead(400);
+                            res.write("Error: Invalid request!");
+                            res.end();
+                        });
                 } else {
                     res.writeHead(404, { "Content-Type": "text/html; charset=utf-8" });
                     res.write(render.page404());
@@ -70,9 +84,28 @@ let server = http.createServer(function (req, res) {
                 }
                 break;
             case "PUT":
-                res.writeHead(404, { "Content-Type": "text/html; charset=utf-8" });
-                res.write(render.page404());
-                res.end();
+                if (/\/tasks\/[0-9]+$/.test(req.url)) {
+                    let taskId = req.url.split("/")[2];
+
+                    parseRequestBody(req, (data) => {
+                        axios
+                            .put(`${apiUrl}/tasks/${taskId}`, data)
+                            .then((resp) => {
+                                res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
+                                res.write(JSON.stringify(resp.data));
+                                res.end();
+                            })
+                            .catch(() => {
+                                res.writeHead(400);
+                                res.write("Error: Invalid request!");
+                                res.end();
+                            });
+                    });
+                } else {
+                    res.writeHead(404, { "Content-Type": "text/html; charset=utf-8" });
+                    res.write(render.page404());
+                    res.end();
+                }
                 break;
             case "DELETE":
                 res.writeHead(404, { "Content-Type": "text/html;charset=utf-8" });

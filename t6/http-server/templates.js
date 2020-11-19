@@ -144,7 +144,7 @@ exports.app = (data) => {
         data.tasksDone.forEach((task) => {
             html += `
                             <li class="task-done" task-id="${task.id}">
-                                <span class="check-task-button"><i class="far fa-square"></i></span>
+                                <span class="check-task-button"><i class="far fa-check-square"></i></span>
                                 <span class="task-description">${task.title}</span>
                                 <span class="task-section-right">
                                     <span class="badge badge-pill badge-primary task-category">${task.category}</span>
