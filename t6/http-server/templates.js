@@ -10,13 +10,16 @@ let init = (title, callback) => {
                 <title>${title}</title>
 
                 <link rel="icon" href="public/img/favicon.png"/>
-
-                <!-- Custom CSS -->
-                <link rel="stylesheet" href="public/css/mine.css">
                 
                 <!-- Bootstrap core CSS -->
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
                     integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+                
+                <!-- Bootstrap Date-Picker CSS -->
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.css"/>
+
+                <!-- Custom CSS -->
+                <link rel="stylesheet" href="public/css/mine.css">
             </head>
             <body>
                 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
@@ -55,8 +58,8 @@ let init = (title, callback) => {
             </body>
 
             <!-- jQuery core JS -->
-            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-                integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+                integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
                 crossorigin="anonymous"></script>
 
             <!-- Bootstrap core JS -->
@@ -66,6 +69,9 @@ let init = (title, callback) => {
 
             <!-- Font Awesome core JS -->
             <script src="https://kit.fontawesome.com/1209018324.js" crossorigin="anonymous"></script>
+
+            <!-- Bootstrap Date-Picker JS -->
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
             <!-- Custom JS -->
             <script src="public/js/mine.js"></script>
@@ -93,7 +99,7 @@ exports.error = (errorMsg) => {
     });
 };
 
-exports.app = (tasksToDo, tasksDone) => {
+exports.app = (data) => {
     return init("To Do App", () => {
         let html = `
             <div class="container-fluid" style="padding: 5em 10em 0 10em;">
@@ -104,7 +110,7 @@ exports.app = (tasksToDo, tasksDone) => {
 
         `;
 
-        tasksToDo.forEach((task) => {
+        data.tasksToDo.forEach((task) => {
             html += `
                             <li class="task">
                                 <span class="check-task-button"><i class="far fa-square"></i></span> 
@@ -131,7 +137,7 @@ exports.app = (tasksToDo, tasksDone) => {
                         <ul class="tasks-board">
         `;
 
-        tasksDone.forEach((task) => {
+        data.tasksDone.forEach((task) => {
             html += `
                             <li class="task task-done">
                                 <span class="check-task-button"><i class="far fa-square"></i></span>
@@ -162,25 +168,38 @@ exports.app = (tasksToDo, tasksDone) => {
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form>
+                            <form id="new-task-form">
                                 <div class="form-group">
-                                    <label for="title" hidden>Email address</label>
-                                    <input type="text" class="form-control" id="title" name="title" aria-describedby="titleHelp" placeholder="Title...">
+                                    <label for="title" hidden>Title</label>
+                                    <input type="text" class="form-control" id="title" name="title" aria-describedby="titleHelp" placeholder="Title..." required/>
                                 </div>
                                 <div class="form-group">
                                     <label for="description" hidden>Description</label>
                                     <textarea type="text" class="form-control" id="description" name="description" placeholder="Description..."></textarea>
                                 </div>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                <div class="form-group">
+                                    <label for="due-date" hidden>Due date</label>
+                                    <input type="text" class="form-control" id="due-date" name="due-date" placeholder="Select date" required/>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <div class="form-group">
+                                    <label for="person" hidden>Person</label>
+                                    <input type="text" class="form-control" id="person" name="person" aria-describedby="personHelp" placeholder="Your name..." required/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="category" hidden>Category</label>
+                                    <select class="form-control" id="category" name="category" required>
+                                          <option>1</option>
+                                          <option>2</option>
+                                          <option>3</option>
+                                          <option>4</option>
+                                          <option>5</option>
+                                    </select>
+                                </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="submit" class="btn btn-primary">Add task</button>
                         </div>
                     </div>
                 </div>

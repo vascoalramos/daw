@@ -3,7 +3,7 @@ const axios = require("axios");
 
 const { isStaticFile, serveStaticFile } = require("./static");
 const render = require("./templates");
-const { currentDateTime } = require("./utils");
+const { parseRequestBody, currentDateTime } = require("./utils");
 
 const serverPort = 7000;
 
@@ -18,18 +18,19 @@ let server = http.createServer(function (req, res) {
     } else {
         switch (req.method) {
             case "GET":
-                if (req.url == "/" || req.url == "/tasks") {
+                if (req.url === "/" || req.url === "/tasks") {
                     axios
                         .get(`${apiUrl}/tasks`)
-                        .then((response) => {
-                            let tasks = response.data;
+                        .then((resp) => {
+                            let tasks = resp.data;
 
-                            let tasksToDo = tasks.filter((task) => task.done === "false");
-
-                            let tasksDone = tasks.filter((task) => task.done === "true");
+                            let data = {
+                                tasksToDo: tasks.filter((task) => task.done === "false"),
+                                tasksDone: tasks.filter((task) => task.done === "true"),
+                            };
 
                             res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
-                            res.write(render.app(tasksToDo, tasksDone));
+                            res.write(render.app(data));
                             res.end();
                         })
                         .catch(function () {
@@ -44,9 +45,29 @@ let server = http.createServer(function (req, res) {
                 }
                 break;
             case "POST":
-                res.writeHead(404, { "Content-Type": "text/html; charset=utf-8" });
-                res.write(render.page404());
-                res.end();
+                if (req.url === "/tasks") {
+                    parseRequestBody(req, (data) => {
+                        data["creation-date"] = new Date().toLocaleDateString("pt-PT");
+                        data["done"] = "false";
+
+                        axios
+                            .post(`${apiUrl}/tasks`, data)
+                            .then((resp) => {
+                                res.writeHead(201, { "Content-Type": "application/json; charset=utf-8" });
+                                res.write(JSON.stringify(resp.data));
+                                res.end();
+                            })
+                            .catch(function () {
+                                res.writeHead(400);
+                                res.write("Error: Invalid request!");
+                                res.end();
+                            });
+                    });
+                } else {
+                    res.writeHead(404, { "Content-Type": "text/html; charset=utf-8" });
+                    res.write(render.page404());
+                    res.end();
+                }
                 break;
             case "PUT":
                 res.writeHead(404, { "Content-Type": "text/html; charset=utf-8" });

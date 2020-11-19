@@ -7,6 +7,6 @@
         - title
         - description
         - category
-        - creation_date
-        - due_date
+        - creation-date
+        - due-date
         - done
