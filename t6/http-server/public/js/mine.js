@@ -27,6 +27,13 @@ $(document).ready(function () {
         });
     });
 
+    $(".delete-task-button").click((event) => {
+        let taskElm = $($(event.currentTarget).parent()).parent();
+        let taskId = $(taskElm).attr("task-id");
+
+        deleteTask(taskId);
+    });
+
     $(".task-done .check-task-button").click((event) => {
         let taskElm = $(event.currentTarget).parent();
         let taskId = $(taskElm).attr("task-id");
@@ -62,6 +69,19 @@ let getTask = (taskId, callback) => {
     })
         .done((data) => {
             callback(data);
+        })
+        .fail((response) => {
+            console.log(response);
+        });
+};
+
+let deleteTask = (taskId) => {
+    $.ajax({
+        type: "DELETE",
+        url: `/tasks/${taskId}`,
+    })
+        .done(() => {
+            location.reload();
         })
         .fail((response) => {
             console.log(response);

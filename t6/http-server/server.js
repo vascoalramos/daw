@@ -108,9 +108,25 @@ let server = http.createServer(function (req, res) {
                 }
                 break;
             case "DELETE":
-                res.writeHead(404, { "Content-Type": "text/html;charset=utf-8" });
-                res.write(render.page404());
-                res.end();
+                if (/\/tasks\/[0-9]+$/.test(req.url)) {
+                    let taskId = req.url.split("/")[2];
+
+                    axios
+                        .delete(`${apiUrl}/tasks/${taskId}`)
+                        .then(() => {
+                            res.writeHead(200);
+                            res.end();
+                        })
+                        .catch(() => {
+                            res.writeHead(400);
+                            res.write("Error: Invalid request!");
+                            res.end();
+                        });
+                } else {
+                    res.writeHead(404, { "Content-Type": "text/html; charset=utf-8" });
+                    res.write(render.page404());
+                    res.end();
+                }
                 break;
             default:
                 res.writeHead(404, { "Content-Type": "text/html;charset=utf-8" });
