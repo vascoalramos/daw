@@ -5,3 +5,59 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+.tasks-board {
+    padding: 0.5em;
+    list-style-type: none;
+}
+
+.tasks-board > li {
+    margin-bottom: 0.5em;
+}
+
+.task {
+    padding: 0.8em;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 5px;
+    transition-property: border-color, box-shadow, background-color;
+    transition-duration: 0.3s;
+    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 4%);
+}
+
+.task:hover {
+    box-shadow: 0 0 20px rgba(33, 33, 33, 0.2);
+}
+
+.task-section-right {
+    float: right;
+}
+
+.task-due-date {
+    margin-right: 2em;
+}
+
+.new-task {
+    opacity: 0.5;
+}
+
+.new-task:hover,
+.check-task-button:hover {
+    cursor: pointer;
+    opacity: 1;
+    color: black;
+}
+
+.new-task-button,
+.check-task-button {
+    margin-right: 0.5em;
+    color: gray;
+}
+
+.task-done {
+    opacity: 0.5;
+}
+
+.task-done > .task-description,
+.task-done > .task-due-date {
+    text-decoration: line-through;
+}

@@ -66,6 +66,9 @@ let init = (title, callback) => {
 
             <!-- Font Awesome core JS -->
             <script src="https://kit.fontawesome.com/1209018324.js" crossorigin="anonymous"></script>
+
+            <!-- Custom JS -->
+            <script src="public/js/mine.js"></script>
         </html>
     `;
 };
@@ -90,28 +93,58 @@ exports.error = (errorMsg) => {
     });
 };
 
-exports.app = (data) => {
+exports.app = (tasksToDo, tasksDone) => {
     return init("To Do App", () => {
         let html = `
-            <div class="container" style="padding: 5em 10em 0 10em;">
+            <div class="container-fluid" style="padding: 5em 10em 0 10em;">
                 <div class="row">
                     <div class="board-card col-6">
                         <h3>To Do</h3>
-                        <div class="tasks">
+                        <ul class="tasks-board">
 
         `;
 
-        data.forEach((task) => {
+        tasksToDo.forEach((task) => {
             html += `
-                            <li>${task.id}</li>
+                            <li class="task">
+                                <span class="check-task-button"><i class="far fa-square"></i></span> 
+                                <span class="task-description">${task.id}</span>
+                                <span class="task-section-right">
+                                    <span class="task-due-date">10/12/2020</span>
+                                    <i class="edit-task far fa-edit"></i>
+                                    <i class="delete-task far fa-trash-alt"></i>
+                                </span>
+                            </li>
             `;
         });
 
         html += `
-                        </div>
+                            <li class="new-task">
+                                <span class="new-task-button"><i class="fas fa-plus"></i></span> Add task
+                            </li>
+                        </ul>
                     </div>
                     <div class="board-card col-6">
                         <h3>Done</h3>
+                        <ul class="tasks-board">
+        `;
+
+        tasksDone.forEach((task) => {
+            html += `
+                            <li class="task task-done">
+                                <span class="check-task-button"><i class="far fa-square"></i></span>
+                                <span class="task-description">${task.id}</span>
+                                <span class="task-section-right">
+                                    <span class="task-due-date">20/09/2020</span>
+                                    <i class="edit-task far fa-edit"></i>
+                                    <i class="delete-task far fa-trash-alt"></i>
+                                </span>
+                            </li>
+            `;
+        });
+
+        html += `
+                        </ul>
                     </div>
                 </div>
             </div>

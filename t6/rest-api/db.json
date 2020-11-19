@@ -1,7 +1,16 @@
 {
     "tasks": [
         {
-            "id": 1
+            "id": 1,
+            "done": "false"
+        },
+        {
+            "id": 2,
+            "done": "true"
+        },
+        {
+            "id": 3,
+            "done": "true"
         }
     ]
 }

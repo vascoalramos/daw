@@ -24,8 +24,12 @@ let server = http.createServer(function (req, res) {
                         .then((response) => {
                             let tasks = response.data;
 
+                            let tasksToDo = tasks.filter((task) => task.done === "false");
+
+                            let tasksDone = tasks.filter((task) => task.done === "true");
+
                             res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
-                            res.write(render.app(tasks));
+                            res.write(render.app(tasksToDo, tasksDone));
                             res.end();
                         })
                         .catch(function () {
