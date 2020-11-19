@@ -121,7 +121,9 @@ exports.app = (data) => {
                                 <span class="task-section-right">
                                     <span class="badge badge-pill badge-primary task-category">${task.category}</span>
                                     <span class="badge badge-pill badge-secondary task-due-date">${task["due-date"]}</span>
-                                    <span class="edit-task-button"><i class="far fa-edit"></i></span>
+                                    <span class="edit-task-button" data-toggle="modal" data-target="#editTaskModal">
+                                        <i class="far fa-edit"></i>
+                                    </span>
                                     <span class="delete-task-button"><i class="far fa-trash-alt"></i></span>
                                 </span>
                             </li>
@@ -149,7 +151,9 @@ exports.app = (data) => {
                                 <span class="task-section-right">
                                     <span class="badge badge-pill badge-primary task-category">${task.category}</span>
                                     <span class="badge badge-pill badge-secondary task-due-date">${task["due-date"]}</span>
-                                    <span class="edit-task-button"><i class="far fa-edit"></i></span>
+                                    <span class="edit-task-button" data-toggle="modal" data-target="#editTaskModal">
+                                        <i class="far fa-edit"></i>
+                                    </span>
                                     <span class="delete-task-button"><i class="far fa-trash-alt"></i></span>
                                 </span>
                             </li>
@@ -176,7 +180,7 @@ exports.app = (data) => {
                             <form id="new-task-form">
                                 <div class="form-group">
                                     <label for="title" hidden>Title</label>
-                                    <input type="text" class="form-control" id="title" name="title" aria-describedby="titleHelp" placeholder="Title..." required/>
+                                    <input type="text" class="form-control" id="title" name="title" aria-describedby="titleHelp" placeholder="Title..."/>
                                     <p id="title-error" style="color: red; display: none">Title is required.</p> 
                                 </div>
                                 <div class="form-group">
@@ -185,16 +189,16 @@ exports.app = (data) => {
                                 </div>
                                 <div class="form-group">
                                     <label for="due-date" hidden>Due date</label>
-                                    <input type="text" class="form-control" id="due-date" name="due-date" placeholder="Select date" required/>
+                                    <input type="text" class="form-control" id="due-date" name="due-date" placeholder="Select date"/>
                                     <p id="due-date-error" style="color: red; display: none">Due date is required.</p> 
                                 </div>
                                 <div class="form-group">
                                     <label for="person" hidden>Person</label>
-                                    <input type="text" class="form-control" id="person" name="person" aria-describedby="personHelp" placeholder="Your name..." required/>
+                                    <input type="text" class="form-control" id="person" name="person" aria-describedby="personHelp" placeholder="Your name..."/>
                                 </div>
                                 <div class="form-group">
                                     <label for="category" hidden>Category</label>
-                                    <input type="text" class="form-control" id="category" name="category" aria-describedby="categoryHelp" placeholder="Category..." required/>
+                                    <input type="text" class="form-control" id="category" name="category" aria-describedby="categoryHelp" placeholder="Category..."/>
                                     <p id="category-error" style="color: red; display: none">Category is required.</p> 
                                 </div>
                             </form>
@@ -202,6 +206,54 @@ exports.app = (data) => {
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Add task</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="editTaskModal" tabindex="-1" aria-labelledby="editTaskModal" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content" style="border-radius: 0.7em;">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Edit Task</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="edit-task-form">
+                                <input type="text" class="form-control" id="edit-id" name="id" hidden/>
+                                <input type="text" class="form-control" id="edit-creation-date" name="creation-date" hidden/>
+                                <input type="text" class="form-control" id="edit-done" name="done" hidden/>
+
+                                <div class="form-group">
+                                    <label for="title" hidden>Title</label>
+                                    <input type="text" class="form-control" id="edit-title" name="title" aria-describedby="titleHelp" placeholder="Title..."/>
+                                    <p id="edit-title-error" style="color: red; display: none">Title is required.</p> 
+                                </div>
+                                <div class="form-group">
+                                    <label for="description" hidden>Description</label>
+                                    <textarea type="text" class="form-control" id="edit-description" name="description" placeholder="Description..."></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="due-date" hidden>Due date</label>
+                                    <input type="text" class="form-control" id="edit-due-date" name="due-date" placeholder="Select date"/>
+                                    <p id="edit-due-date-error" style="color: red; display: none">Due date is required.</p> 
+                                </div>
+                                <div class="form-group">
+                                    <label for="person" hidden>Person</label>
+                                    <input type="text" class="form-control" id="edit-person" name="person" aria-describedby="personHelp" placeholder="Your name..."/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="category" hidden>Category</label>
+                                    <input type="text" class="form-control" id="edit-category" name="category" aria-describedby="categoryHelp" placeholder="Category..."/>
+                                    <p id="edit-category-error" style="color: red; display: none">Category is required.</p> 
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Edit task</button>
                         </div>
                     </div>
                 </div>

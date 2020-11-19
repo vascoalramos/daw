@@ -3,19 +3,51 @@ $(document).ready(function () {
         $($(this).children()[0]).toggleClass("fa-square fa-check-square");
     });
 
-    $("#due-date").datepicker({
+    let options = {
         format: "dd/mm/yyyy",
         todayHighlight: true,
         autoclose: true,
-    });
+    };
+
+    $("#due-date").datepicker(options);
+    $("#edit-due-date").datepicker(options);
 
     $("#newTaskModal button[type=submit]").click((event) => {
         event.preventDefault();
 
-        let formIsValid = validateTaskForm();
+        let formIsValid = validateTaskForm("new-task-form");
         if (formIsValid) {
             createNewTask();
         }
+    });
+
+    $(".edit-task-button").click((event) => {
+        let taskElm = $($(event.currentTarget).parent()).parent();
+        let taskId = $(taskElm).attr("task-id");
+
+        $("#edit-task-form").attr("task-id", taskId);
+
+        getTask(taskId, (data) => {
+            Object.keys(data).map((key) => {
+                $(`#edit-${key}`).val(data[key]);
+            });
+        });
+    });
+
+    $("#editTaskModal button[type=submit]").click((event) => {
+        event.preventDefault();
+
+        let formIsValid = validateTaskForm("edit-task-form");
+        if (formIsValid) {
+            editTask();
+        }
+    });
+
+    $(".delete-task-button").click((event) => {
+        let taskElm = $($(event.currentTarget).parent()).parent();
+        let taskId = $(taskElm).attr("task-id");
+
+        deleteTask(taskId);
     });
 
     $(".task .check-task-button").click((event) => {
@@ -25,13 +57,6 @@ $(document).ready(function () {
         getTask(taskId, (data) => {
             toggleCheckTask(data, "true");
         });
-    });
-
-    $(".delete-task-button").click((event) => {
-        let taskElm = $($(event.currentTarget).parent()).parent();
-        let taskId = $(taskElm).attr("task-id");
-
-        deleteTask(taskId);
     });
 
     $(".task-done .check-task-button").click((event) => {
@@ -88,6 +113,26 @@ let deleteTask = (taskId) => {
         });
 };
 
+let editTask = (data) => {
+    let taskId = $("#edit-task-form").attr("task-id");
+    let formData = $("#edit-task-form").serialize();
+    console.log(formData);
+
+    $.ajax({
+        type: "PUT",
+        data: formData,
+        url: `/tasks/${taskId}`,
+        processData: false,
+    })
+        .done(() => {
+            $("#editTaskModal").modal("toggle");
+            location.reload();
+        })
+        .fail((response) => {
+            console.log(response);
+        });
+};
+
 let toggleCheckTask = (data, doneVal) => {
     data.done = doneVal;
 
@@ -111,62 +156,68 @@ let toggleCheckTask = (data, doneVal) => {
         });
 };
 
-let validateTaskForm = () => {
-    let retVal = validateTitle() & validateDueDate() & validateCategory();
+let validateTaskForm = (formId, errorId) => {
+    let retVal;
+
+    if (formId === "new-task-form") {
+        retVal = validateTitle("#title") & validateDueDate("#due-date") & validateCategory("#category");
+    } else {
+        retVal = validateTitle("#edit-title") & validateDueDate("#edit-due-date") & validateCategory("#edit-category");
+    }
 
     return retVal;
 };
 
-let validateTitle = () => {
+let validateTitle = (id) => {
     let retVal = true;
 
-    let title = $("#title").val();
+    let title = $(id).val();
 
     if (title.length == "") {
-        $("#title-error").show();
+        $(`${id}-error`).show();
         retVal = false;
     } else if (title.length < 3 || title.length > 30) {
-        $("#title-error").show();
-        $("#title-error").html("Title length must be between 3 and 30");
+        $(`${id}-error`).show();
+        $(`${id}-error`).html("Title length must be between 3 and 30");
         retVal = false;
     } else {
-        $("#title-error").hide();
+        $(`${id}-error`).hide();
     }
     return retVal;
 };
 
-let validateDueDate = () => {
+let validateDueDate = (id) => {
     let retVal = true;
 
-    let dueDate = $("#due-date").val();
+    let dueDate = $(id).val();
 
     if (dueDate.length == "") {
-        $("#due-date-error").show();
+        $(`${id}-error`).show();
         retVal = false;
     } else if (!moment(dueDate, "DD/MM/YYYY", true).isValid()) {
-        $("#due-date-error").show();
-        $("#due-date-error").html("Invalid date (format: dd/mm/yyyy)");
+        $(`${id}-error`).show();
+        $(`${id}-error`).html("Invalid date (format: dd/mm/yyyy)");
         retVal = false;
     } else {
-        $("#due-date-error").hide();
+        $(`${id}-error`).hide();
     }
     return retVal;
 };
 
-let validateCategory = () => {
+let validateCategory = (id) => {
     let retVal = true;
 
-    let category = $("#category").val();
+    let category = $(id).val();
 
     if (category.length == "") {
-        $("#category-error").show();
+        $(`${id}-error`).show();
         retVal = false;
     } else if (category.length < 3 || category.length > 10) {
-        $("#category-error").show();
-        $("#category-error").html("Category length must be between 3 and 10");
+        $(`${id}-error`).show();
+        $(`${id}-error`).html("Category length must be between 3 and 10");
         retVal = false;
     } else {
-        $("#category-error").hide();
+        $(`${id}-error`).hide();
     }
     return retVal;
 };
