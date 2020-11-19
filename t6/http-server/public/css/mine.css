@@ -15,7 +15,8 @@ footer {
     margin-bottom: 0.5em;
 }
 
-.task {
+.task,
+.task-done {
     padding: 0.8em;
     border: 1px solid rgba(0, 0, 0, 0.12);
     border-radius: 5px;
@@ -24,15 +25,26 @@ footer {
     box-shadow: 0 2px 4px 0 rgb(0 0 0 / 4%);
 }
 
-.task:hover {
+.task:hover,
+.task-done:hover {
     box-shadow: 0 0 20px rgba(33, 33, 33, 0.2);
+}
+
+.task-done {
+    opacity: 0.5;
+}
+
+.task-done > .task-description,
+.task-done > .task-due-date {
+    text-decoration: line-through;
 }
 
 .task-section-right {
     float: right;
 }
 
-.task-due-date {
+.task-due-date,
+.task-category {
     margin-right: 2em;
 }
 
@@ -60,13 +72,4 @@ footer {
 .delete-task-button {
     margin-right: 0.5em;
     color: gray;
-}
-
-.task-done {
-    opacity: 0.5;
-}
-
-.task-done > .task-description,
-.task-done > .task-due-date {
-    text-decoration: line-through;
 }

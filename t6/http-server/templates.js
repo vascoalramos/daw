@@ -73,6 +73,9 @@ let init = (title, callback) => {
             <!-- Bootstrap Date-Picker JS -->
             <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
+            <!-- Moment.js Date validation JS -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
             <!-- Custom JS -->
             <script src="public/js/mine.js"></script>
         </html>
@@ -112,11 +115,12 @@ exports.app = (data) => {
 
         data.tasksToDo.forEach((task) => {
             html += `
-                            <li class="task">
+                            <li class="task" task-id="${task.id}">
                                 <span class="check-task-button"><i class="far fa-square"></i></span> 
-                                <span class="task-description">${task.id}</span>
+                                <span class="task-description">${task.title}</span>
                                 <span class="task-section-right">
-                                    <span class="task-due-date">10/12/2020</span>
+                                    <span class="badge badge-pill badge-primary task-category">${task.category}</span>
+                                    <span class="badge badge-pill badge-secondary task-due-date">${task["due-date"]}</span>
                                     <span class="edit-task-button"><i class="far fa-edit"></i></span>
                                     <span class="delete-task-button"><i class="far fa-trash-alt"></i></span>
                                 </span>
@@ -139,11 +143,12 @@ exports.app = (data) => {
 
         data.tasksDone.forEach((task) => {
             html += `
-                            <li class="task task-done">
+                            <li class="task-done" task-id="${task.id}">
                                 <span class="check-task-button"><i class="far fa-square"></i></span>
-                                <span class="task-description">${task.id}</span>
+                                <span class="task-description">${task.title}</span>
                                 <span class="task-section-right">
-                                    <span class="task-due-date">20/09/2020</span>
+                                    <span class="badge badge-pill badge-primary task-category">${task.category}</span>
+                                    <span class="badge badge-pill badge-secondary task-due-date">${task["due-date"]}</span>
                                     <span class="edit-task-button"><i class="far fa-edit"></i></span>
                                     <span class="delete-task-button"><i class="far fa-trash-alt"></i></span>
                                 </span>
@@ -172,6 +177,7 @@ exports.app = (data) => {
                                 <div class="form-group">
                                     <label for="title" hidden>Title</label>
                                     <input type="text" class="form-control" id="title" name="title" aria-describedby="titleHelp" placeholder="Title..." required/>
+                                    <p id="title-error" style="color: red; display: none">Title is required.</p> 
                                 </div>
                                 <div class="form-group">
                                     <label for="description" hidden>Description</label>
@@ -180,6 +186,7 @@ exports.app = (data) => {
                                 <div class="form-group">
                                     <label for="due-date" hidden>Due date</label>
                                     <input type="text" class="form-control" id="due-date" name="due-date" placeholder="Select date" required/>
+                                    <p id="due-date-error" style="color: red; display: none">Due date is required.</p> 
                                 </div>
                                 <div class="form-group">
                                     <label for="person" hidden>Person</label>
@@ -187,13 +194,8 @@ exports.app = (data) => {
                                 </div>
                                 <div class="form-group">
                                     <label for="category" hidden>Category</label>
-                                    <select class="form-control" id="category" name="category" required>
-                                          <option>1</option>
-                                          <option>2</option>
-                                          <option>3</option>
-                                          <option>4</option>
-                                          <option>5</option>
-                                    </select>
+                                    <input type="text" class="form-control" id="category" name="category" aria-describedby="categoryHelp" placeholder="Category..." required/>
+                                    <p id="category-error" style="color: red; display: none">Category is required.</p> 
                                 </div>
                             </form>
                         </div>
