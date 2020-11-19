@@ -1,3 +1,0 @@
-(Outros) Extras:
- - editar tarefas (PUT)
- - apagar tarefas que já estão done (DELETE)
