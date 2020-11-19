@@ -19,7 +19,7 @@ let init = (title, callback) => {
                     integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
             </head>
             <body>
-                <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
                     <a class="navbar-brand" href="#"><i class="far fa-check-square"></i> To Do</a>
 
                     <!-- Hamburger menu -->
@@ -99,7 +99,7 @@ exports.app = (tasksToDo, tasksDone) => {
             <div class="container-fluid" style="padding: 5em 10em 0 10em;">
                 <div class="row">
                     <div class="board-card col-6">
-                        <h3>To Do</h3>
+                        <h3><b>To Do</b></h3>
                         <ul class="tasks-board">
 
         `;
@@ -111,8 +111,8 @@ exports.app = (tasksToDo, tasksDone) => {
                                 <span class="task-description">${task.id}</span>
                                 <span class="task-section-right">
                                     <span class="task-due-date">10/12/2020</span>
-                                    <i class="edit-task far fa-edit"></i>
-                                    <i class="delete-task far fa-trash-alt"></i>
+                                    <span class="edit-task-button"><i class="far fa-edit"></i></span>
+                                    <span class="delete-task-button"><i class="far fa-trash-alt"></i></span>
                                 </span>
                             </li>
             `;
@@ -120,12 +120,14 @@ exports.app = (tasksToDo, tasksDone) => {
 
         html += `
                             <li class="new-task">
-                                <span class="new-task-button"><i class="fas fa-plus"></i></span> Add task
+                                <span class="new-task-button" data-toggle="modal" data-target="#newTaskModal">
+                                    <i class="fas fa-plus"></i> Add task
+                                </span>
                             </li>
                         </ul>
                     </div>
                     <div class="board-card col-6">
-                        <h3>Done</h3>
+                        <h3><b>Done</b></h3>
                         <ul class="tasks-board">
         `;
 
@@ -136,8 +138,8 @@ exports.app = (tasksToDo, tasksDone) => {
                                 <span class="task-description">${task.id}</span>
                                 <span class="task-section-right">
                                     <span class="task-due-date">20/09/2020</span>
-                                    <i class="edit-task far fa-edit"></i>
-                                    <i class="delete-task far fa-trash-alt"></i>
+                                    <span class="edit-task-button"><i class="far fa-edit"></i></span>
+                                    <span class="delete-task-button"><i class="far fa-trash-alt"></i></span>
                                 </span>
                             </li>
             `;
@@ -145,6 +147,41 @@ exports.app = (tasksToDo, tasksDone) => {
 
         html += `
                         </ul>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="modal fade" id="newTaskModal" tabindex="-1" aria-labelledby="newTaskModal" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content" style="border-radius: 0.7em;">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Create new Task</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="title" hidden>Email address</label>
+                                    <input type="text" class="form-control" id="title" name="title" aria-describedby="titleHelp" placeholder="Title...">
+                                </div>
+                                <div class="form-group">
+                                    <label for="description" hidden>Description</label>
+                                    <textarea type="text" class="form-control" id="description" name="description" placeholder="Description..."></textarea>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
                     </div>
                 </div>
             </div>
