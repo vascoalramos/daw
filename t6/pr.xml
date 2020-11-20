@@ -3,7 +3,7 @@
 <pr>
     <meta>
         <key>daw_t6</key>
-        <title>Criação de um Server em Node.js para servir conteúdo a partir de uma REST API</title>
+        <title>Criação de um Server em Node.js para servir conteúdo numa SPA a partir de uma REST API</title>
         <subtitle>Relatório produzido no contexto dos trabalhos práticos da cadeira de DAW do MEI 2020/21</subtitle>
         <bdate>18 de Novembro de 2020</bdate>
         <edate>24 de Novembro de 2020</edate>
@@ -18,12 +18,15 @@
     </team>
     <abstract>
         <p>
-            O quinto trabalho prático de casa tinha como objetivo criar um servidor em <i>Node.js</i> que servisse conteúdo sobre uma escola de música. Para o efeito, prototipou-se uma <i>REST API</i>, através do
-            <i>package <b>json-server</b></i> em <i>Node.js</i>, sobre o dataset fornecido (com as entidades: alunos, cursos e instrumentos) e consultou-se a API sempre que fosse necessário informação.
+            O sexto trabalho prático de casa tinha como objetivo criar um servidor em <i>Node.js</i> para servir um gestor de tarefas (To Do) na forma de uma
+            <i>SPA (Single Page Application)</i>. Para o efeito, prototipou-se uma <i>REST API</i>, através do <i>package <b>json-server</b></i> em <i>Node.js</i>,
+            sobre o dataset próprio que fosse capaz de representar cada uma das tarefas (título, descrição, pessoa associada, data de criação, data da tarefa, categoria, etc)
+            e consultou-se a API sempre que fosse necessário informação.
         </p>
         <p>
-            Para o servidor em <i>Node.js</i> comunicar com a <i>REST API</i>, usou-se o <i>package <b>axios</b></i> e aplicou-se também algum CSS e Bootstrap para tornar as páginas apelativas, bem como paginação
-            nas listagens para facilitar a procura de elementos.
+            Para o servidor em <i>Node.js</i> comunicar com a <i>REST API</i>, usou-se o <i>package <b>axios</b></i> e para cumprir a arquitetura SPA, o servidor aplicacional 
+            respondia apenas com uma página HTML e, a partir daí, toda a comunicação entre o cliente e a aplicação era feita através de pedidos <i>AJAX</i> de modo a cumprir
+            todas as operações requeridas e atualizar a informação associada, conforme fosse necesário.
         </p>
     </abstract>
     <deliverables>
