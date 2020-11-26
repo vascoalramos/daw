@@ -46,7 +46,6 @@ router.post("/students", (req, res) => {
     student
         .check(data.numero)
         .then((numberOfStudents) => {
-            console.log(numberOfStudents === 0);
             if (numberOfStudents === 0) {
                 student
                     .insert(data)
@@ -58,6 +57,32 @@ router.post("/students", (req, res) => {
                     });
             } else {
                 res.status(400).json({ error: `Student with number: ${data.numero} already exists!` });
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            res.render("error", { error: err });
+        });
+});
+
+/* DELETE student. */
+router.delete("/students/:id", (req, res) => {
+    let studentId = req.params.id;
+
+    student
+        .check(studentId)
+        .then((numberOfStudents) => {
+            if (numberOfStudents !== 0) {
+                student
+                    .delete(studentId)
+                    .then(() => {
+                        res.status(200).end();
+                    })
+                    .catch((err) => {
+                        res.render("error", { error: err });
+                    });
+            } else {
+                res.status(400).json({ error: `Student with number: ${studentId} does not exist!` });
             }
         })
         .catch((err) => {

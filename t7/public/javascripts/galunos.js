@@ -43,3 +43,16 @@ let registerStudent = () => {
             });
     }
 };
+
+let deleteStudent = (studentId) => {
+    $.ajax({
+        type: "DELETE",
+        url: `/students/${studentId}`,
+    })
+        .done(() => {
+            window.location = "/students";
+        })
+        .fail((err) => {
+            console.log(err);
+        });
+};

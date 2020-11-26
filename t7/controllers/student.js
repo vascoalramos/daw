@@ -14,6 +14,9 @@ module.exports.insert = (student) => {
 };
 
 module.exports.check = (id) => {
-    console.log(id);
     return Student.countDocuments({ numero: id });
+};
+
+module.exports.delete = (id) => {
+    return Student.deleteOne({ numero: id });
 };
