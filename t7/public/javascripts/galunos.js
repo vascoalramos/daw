@@ -1,6 +1,6 @@
 let registerStudent = () => {
     if (document.getElementById("new-student-form").checkValidity() === false) {
-        ["name", "number", "git"].forEach((el) => {
+        ["name", "number"].forEach((el) => {
             if ($(`#${el}`).val() === "") {
                 $(`#${el}-error`).show();
             } else {
@@ -59,7 +59,7 @@ let deleteStudent = (studentId) => {
 
 let updateStudent = (id) => {
     if (document.getElementById("edit-student-form").checkValidity() === false) {
-        ["name", "number", "git"].forEach((el) => {
+        ["name", "number"].forEach((el) => {
             if ($(`#${el}`).val() === "") {
                 $(`#${el}-error`).show();
             } else {
@@ -73,7 +73,7 @@ let updateStudent = (id) => {
         Object.keys(formData).forEach(function (key) {
             let entry = formData[key];
 
-            if (entry.name === "git") {
+            if (entry.name === "git" && entry.value !== "") {
                 finalData[entry.name] = `https://github.com/${entry.value}`;
             } else if (/tpc/.test(entry.name)) {
                 tpcNumber = entry.name.substring(3) - 1;
@@ -92,7 +92,7 @@ let updateStudent = (id) => {
         })
             .done(() => {
                 $(`#general-error`).hide();
-                // window.location = `/students/${id}`;
+                window.location = `/students/${id}`;
             })
             .fail((err) => {
                 let errorMessage = err.responseJSON.error;

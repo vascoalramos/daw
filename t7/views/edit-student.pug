@@ -27,10 +27,9 @@ block content
               .input-group-text github.com/
             if student.git
               - let git = student.git.substring(19).split(".git")[0];
-              input.form-control(type="text", id="git", name="git", placeholder="Git repo...", value=`${git}`, required)
+              input.form-control(type="text", id="git", name="git", placeholder="Git repo...", value=`${git}`)
             else
-              input.form-control(type="text", id="git", name="git", placeholder="Git repo...", required)
-          p(id="git-error", style="color: red; display: none") Git repo is required 
+              input.form-control(type="text", id="git", name="git", placeholder="Git repo...")
 
         div.mb-5
           h5.pt-3.pt-2 TPCs Done

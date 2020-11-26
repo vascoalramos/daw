@@ -5,6 +5,13 @@ block content
     .text-center
       h2 Student Detail [#{student.numero}] (DAW2020)
 
+      .container.my-3
+        .col-12
+          span.mr-5(onclick=`event.stopPropagation();window.location = "/students/${student.numero}/edit";`)
+            i.edit-student-icon.far.fa-edit.fa-lg(style="color: orange;")
+          span(onclick=`event.stopPropagation();deleteStudent("${student.numero}")`)
+            i.delete-student-icon.far.fa-trash-alt.fa-lg(style="color: red; ")
+
       .card.my-5.bg-light
         .card-body.p-4
           .row
@@ -14,15 +21,18 @@ block content
             .col-9 
               .span
                 h4 #{student.nome}
-                  a.git-icon(href= student.git, target="_blank", style="text-decoration: none;")
-                    i.fab.fa-github.pl-4
+                  if student.git
+                    a.pl-4.git-icon(href= student.git, target="_blank", style="text-decoration: none;")
+                      i.fab.fa-github
+                  else
 
       .my-5
         h4
           b TPCs Rate
         .gauge-container(id="tpc-gauge", style="max-width: 50%; margin: auto; margin-top: -3%")
-  
+
   script(src="/javascripts/gauge.min.js")
   script(src="/javascripts/myGauge.js")
+  script(src="/javascripts/galunos.js")
   script.
     tpcsGauge(new Array(!{student.tpc}));

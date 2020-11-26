@@ -20,5 +20,6 @@ footer {
 
 .delete-student-icon:hover,
 .edit-student-icon:hover {
+    cursor: pointer;
     transform: scale(1.1);
 }

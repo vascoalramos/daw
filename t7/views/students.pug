@@ -25,11 +25,9 @@ block content
                       a(href=s.git, target="_blank", onclick="event.stopPropagation();")= s.git.substring(19).split(".git")[0]
                     else
                   td.edit-student-icon(onclick=`event.stopPropagation();window.location = "/students/${s.numero}/edit";`)
-                    span
-                      i.far.fa-edit(style="color: orange;")
+                    i.far.fa-edit(style="color: orange;")
                   td.delete-student-icon(onclick=`event.stopPropagation();deleteStudent("${s.numero}")`)
-                    span
-                      i.far.fa-trash-alt(style="color: red;")
+                    i.far.fa-trash-alt(style="color: red;")
       else
         .container.py-5.my-5
           h5 There are no students...
