@@ -10,9 +10,12 @@ mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // get the default connection
 const db = mongoose.connection;
+db.on("error", console.error.bind(console, "MongoDB connection error!"));
+db.once("open", function () {
+    console.log("Connected to MongoDB successfully!");
+});
 
 const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
 
 const app = express();
 

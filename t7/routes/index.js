@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const student = require("../../controllers/student");
+const student = require("../controllers/student");
 
 /* GET home page. */
 router.get("/", (req, res) => {
