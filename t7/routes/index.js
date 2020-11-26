@@ -39,6 +39,33 @@ router.get("/students/:id", (req, res) => {
         });
 });
 
+/* GET update student form page. */
+router.get("/students/:id/edit", (req, res) => {
+    let studentId = req.params.id;
+    student
+        .fetch(studentId)
+        .then((data) => {
+            res.render("student-detail", { student: data });
+        })
+        .catch((err) => {
+            res.render("error", { error: err });
+        });
+});
+
+/* GET student page. */
+router.get("/students/:id", (req, res) => {
+    let studentId = req.params.id;
+
+    student
+        .fetch(studentId)
+        .then((data) => {
+            res.render("student-detail", { student: data });
+        })
+        .catch((err) => {
+            res.render("error", { error: err });
+        });
+});
+
 /* POST new student. */
 router.post("/students", (req, res) => {
     let data = req.body;

@@ -14,6 +14,7 @@ block content
                 th Name
                 th Git
                 th
+                th
             tbody
               each s in list
                 tr.student-row(onclick= `window.location = "/students/${s.numero}"`)
@@ -23,6 +24,9 @@ block content
                     if s.git
                       a(href=s.git, target="_blank", onclick="event.stopPropagation();")= s.git.substring(19).split(".git")[0]
                     else
+                  td.edit-student-icon(onclick=`event.stopPropagation();window.location = "/students/${s.numero}/edit";`)
+                    span
+                      i.far.fa-edit(style="color: orange;")
                   td.delete-student-icon(onclick=`event.stopPropagation();deleteStudent("${s.numero}")`)
                     span
                       i.far.fa-trash-alt(style="color: red;")
