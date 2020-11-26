@@ -20,7 +20,7 @@ block content
                   td= s.nome
                   td
                     if s.git
-                      a(href=s.git)= s.git.substring(19).split(".git")[0]
+                      a(href=s.git, target="_blank")= s.git.substring(19).split(".git")[0]
       else
         .container
           p There are no students
