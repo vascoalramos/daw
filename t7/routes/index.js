@@ -45,7 +45,7 @@ router.get("/students/:id/edit", (req, res) => {
     student
         .fetch(studentId)
         .then((data) => {
-            res.render("student-detail", { student: data });
+            res.render("edit-student", { student: data });
         })
         .catch((err) => {
             res.render("error", { error: err });
@@ -102,6 +102,33 @@ router.delete("/students/:id", (req, res) => {
             if (numberOfStudents !== 0) {
                 student
                     .delete(studentId)
+                    .then(() => {
+                        res.status(200).end();
+                    })
+                    .catch((err) => {
+                        res.render("error", { error: err });
+                    });
+            } else {
+                res.status(400).json({ error: `Student with number: ${studentId} does not exist!` });
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            res.render("error", { error: err });
+        });
+});
+
+/* PUT edit student. */
+router.put("/students/:id", (req, res) => {
+    let studentId = req.params.id;
+    let data = req.body;
+
+    student
+        .check(studentId)
+        .then((numberOfStudents) => {
+            if (numberOfStudents !== 0) {
+                student
+                    .update(studentId, data)
                     .then(() => {
                         res.status(200).end();
                     })

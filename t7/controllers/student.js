@@ -20,3 +20,7 @@ module.exports.check = (id) => {
 module.exports.delete = (id) => {
     return Student.deleteOne({ numero: id });
 };
+
+module.exports.update = (id, student) => {
+    return Student.updateOne({ numero: id }, student);
+};
