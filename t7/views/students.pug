@@ -21,7 +21,7 @@ block content
                   td= s.numero
                   td= s.nome
                   td
-                    if s.git
+                    if (s.git && s.git !== "") 
                       a(href=s.git, target="_blank", onclick="event.stopPropagation();")= s.git.substring(19).split(".git")[0]
                     else
                   td.edit-student-icon(onclick=`event.stopPropagation();window.location = "/students/${s.numero}/edit";`)

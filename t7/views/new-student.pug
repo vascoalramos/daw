@@ -10,8 +10,11 @@ block content
         span(style="color: red;")
     
     .mb-5
-      form(id="new-student-form")
-        .form-row
+      form(id="new-student-form", enctype="multipart/form-data")
+        .custom-file
+          label.custom-file-label(for="photo") Select your profile picture:
+          input.custom-file-input(type="file", id="photo", name="photo")
+        .form-row 
           .col-7
             label(for="name")
             input.form-control(type="text", id="name", name="nome", placeholder="Name...", required)

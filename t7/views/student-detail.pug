@@ -12,6 +12,11 @@ block content
           span(onclick=`event.stopPropagation();deleteStudent("${student.numero}")`)
             i.delete-student-icon.far.fa-trash-alt.fa-lg(style="color: red; ")
 
+      if (student.photo && student.photo !== "") 
+        .container.my-3
+          img.rounded.mx-auto.d-block(src=`/images/uploads/${student.photo}`, style="width: 15em;")
+      else
+
       .card.my-5.bg-light
         .card-body.p-4
           .row
@@ -21,7 +26,7 @@ block content
             .col-9 
               .span
                 h4 #{student.nome}
-                  if student.git
+                  if (student.git && student.git !== "") 
                     a.pl-4.git-icon(href= student.git, target="_blank", style="text-decoration: none;")
                       i.fab.fa-github
                   else

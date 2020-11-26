@@ -8,29 +8,31 @@ let registerStudent = () => {
             }
         });
     } else {
-        let formData = $("#new-student-form").serializeArray();
+        let formData = new FormData($("#new-student-form")[0]);
 
-        let finalData = { tpc: new Array(8).fill(0) };
+        let tpcs = new Array(8).fill(0);
 
-        Object.keys(formData).forEach(function (key) {
-            let entry = formData[key];
-
-            if (entry.name === "git") {
-                finalData[entry.name] = `https://github.com/${entry.value}`;
-            } else if (/tpc/.test(entry.name)) {
-                tpcNumber = entry.name.substring(3);
-                finalData.tpc[tpcNumber] = 1;
-            } else {
-                finalData[entry.name] = entry.value;
+        formData.forEach((value, key) => {
+            if (key === "git") {
+                formData.set(key, `https://github.com/${value}`);
+            } else if (/tpc/.test(key)) {
+                tpcNumber = key.substring(3) - 1;
+                tpcs[tpcNumber] = 1;
             }
         });
 
+        for (let i = 1; i < 9; i++) {
+            formData.delete(`tpc${i}`);
+        }
+
+        formData.append("tpc", JSON.stringify(tpcs));
+
         $.ajax({
             type: "POST",
-            data: JSON.stringify(finalData),
+            data: formData,
             url: "/students",
             processData: false,
-            contentType: "application/json",
+            contentType: false,
         })
             .done(() => {
                 $(`#general-error`).hide();
@@ -67,28 +69,31 @@ let updateStudent = (id) => {
             }
         });
     } else {
-        let formData = $("#edit-student-form").serializeArray();
-        let finalData = { tpc: new Array(8).fill(0) };
+        let formData = new FormData($("#edit-student-form")[0]);
 
-        Object.keys(formData).forEach(function (key) {
-            let entry = formData[key];
+        let tpcs = new Array(8).fill(0);
 
-            if (entry.name === "git" && entry.value !== "") {
-                finalData[entry.name] = `https://github.com/${entry.value}`;
-            } else if (/tpc/.test(entry.name)) {
-                tpcNumber = entry.name.substring(3) - 1;
-                finalData.tpc[tpcNumber] = 1;
-            } else {
-                finalData[entry.name] = entry.value;
+        formData.forEach((value, key) => {
+            if (key === "git") {
+                formData.set(key, `https://github.com/${value}`);
+            } else if (/tpc/.test(key)) {
+                tpcNumber = key.substring(3) - 1;
+                tpcs[tpcNumber] = 1;
             }
         });
 
+        for (let i = 1; i < 9; i++) {
+            formData.delete(`tpc${i}`);
+        }
+
+        formData.append("tpc", JSON.stringify(tpcs));
+
         $.ajax({
             type: "PUT",
-            data: JSON.stringify(finalData),
+            data: formData,
             url: `/students/${id}`,
             processData: false,
-            contentType: "application/json",
+            contentType: false,
         })
             .done(() => {
                 $(`#general-error`).hide();

@@ -10,7 +10,10 @@ block content
         span(style="color: red;")
     
     .mb-5
-      form(id="edit-student-form")
+      form(id="edit-student-form", enctype="multipart/form-data")
+        .custom-file
+          label.custom-file-label(for="photo") Update your profile picture:
+          input.custom-file-input(type="file", id="photo", name="photo")
         .form-row
           .col-7
             label(for="name")
