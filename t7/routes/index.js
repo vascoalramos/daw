@@ -20,9 +20,15 @@ router.get("/students", (req, res) => {
         });
 });
 
+/* GET new student form page. */
+router.get("/students/register", (req, res) => {
+    res.render("new-student");
+});
+
 /* GET student page. */
 router.get("/students/:id", (req, res) => {
     let studentId = req.params.id;
+
     student
         .fetch(studentId)
         .then((data) => {
@@ -33,9 +39,31 @@ router.get("/students/:id", (req, res) => {
         });
 });
 
-/* GET new student form page. */
-router.get("/students/register", (req, res) => {
-    res.render("new-student");
+/* POST new student. */
+router.post("/students", (req, res) => {
+    let data = req.body;
+
+    student
+        .check(data.numero)
+        .then((numberOfStudents) => {
+            console.log(numberOfStudents === 0);
+            if (numberOfStudents === 0) {
+                student
+                    .insert(data)
+                    .then(() => {
+                        res.status(201).end();
+                    })
+                    .catch((err) => {
+                        res.render("error", { error: err });
+                    });
+            } else {
+                res.status(400).json({ error: `Student with number: ${data.numero} already exists!` });
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            res.render("error", { error: err });
+        });
 });
 
 module.exports = router;

@@ -1,13 +1,19 @@
 const Student = require("../models/student");
 
 module.exports.list = () => {
-    return Student.find().sort({ nome: 1 }).exec();
+    return Student.find().sort({ nome: 1 });
 };
 
 module.exports.fetch = (id) => {
-    return Student.findOne({ numero: id }).exec();
+    return Student.findOne({ numero: id });
 };
+
 module.exports.insert = (student) => {
     let newStudent = new Student(student);
     return newStudent.save();
+};
+
+module.exports.check = (id) => {
+    console.log(id);
+    return Student.countDocuments({ numero: id });
 };
