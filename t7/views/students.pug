@@ -2,7 +2,7 @@ extends layout
 
 block content
   .container
-    div.pt-4.text-center
+    .pt-4.text-center
       h2 Students List (DAW2020)
 
       if list.length > 0
@@ -22,11 +22,5 @@ block content
                     if s.git
                       a(href=s.git, target="_blank", onclick="event.stopPropagation();")= s.git.substring(19).split(".git")[0]
       else
-        .container
-          p There are no students
-
-    footer.container
-      hr
-      p.float-right
-        a(href="#") Back to top
-      p &copy; DAW 2020 - Developed by Vasco Ramos.
+        .container.py-5.my-5
+          h5 There are no students...

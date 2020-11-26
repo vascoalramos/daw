@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  .container
+    .pt-4.text-center
+      h2 Student Detail [#{student.numero}] (DAW2020)
+
+      .card.my-5.bg-light
+        .card-body.p-4
+          .row
+            .col-3
+              h4
+                b #{student.numero}
+            .col-9 
+              .span
+                h4 #{student.nome}
+                  a.git-icon(href= student.git, target="_blank", style="text-decoration: none;")
+                    i.fab.fa-github.pl-4
+
+      .my-5
+        h4
+          b TPCs Rate
+        .gauge-container(id="tpc-gauge", style="max-width: 50%; margin: auto; margin-top: -3%")
+
+  script(src="/javascripts/gauge.min.js")
+  script(src="/javascripts/myGauge.js")
+  script.
+    tpcsGauge(new Array(!{student.tpc}));

@@ -21,12 +21,12 @@ router.get("/students", (req, res) => {
 });
 
 /* GET student page. */
-router.get("/student/:id", (req, res) => {
-    console.log(req.params);
+router.get("/students/:id", (req, res) => {
+    let studentId = req.params.id;
     student
-        .list()
+        .fetch(studentId)
         .then((data) => {
-            res.render("students", { list: data });
+            res.render("studentDetail", { student: data });
         })
         .catch((err) => {
             res.render("error", { error: err });

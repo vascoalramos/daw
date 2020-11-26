@@ -9,3 +9,11 @@ footer {
 .student-row:hover {
     cursor: pointer;
 }
+
+.git-icon {
+    color: black;
+}
+
+.card:hover {
+    box-shadow: 0 0 20px rgba(33, 33, 33, 0.2);
+}
