@@ -20,4 +20,17 @@ router.get("/students", (req, res) => {
         });
 });
 
+/* GET student page. */
+router.get("/student/:id", (req, res) => {
+    console.log(req.params);
+    student
+        .list()
+        .then((data) => {
+            res.render("students", { list: data });
+        })
+        .catch((err) => {
+            res.render("error", { error: err });
+        });
+});
+
 module.exports = router;

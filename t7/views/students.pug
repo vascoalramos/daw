@@ -7,7 +7,7 @@ block content
 
       if list.length > 0
         .container.py-5
-          table.table.table-borderless
+          table.table.table-borderless.table-hover
             thead.thead-dark
               tr
                 th Number
@@ -15,12 +15,12 @@ block content
                 th Git
             tbody
               each s in list
-                tr
+                tr.student-row(onclick= `window.location = "/students/${s.numero}"`)
                   td= s.numero
                   td= s.nome
                   td
                     if s.git
-                      a(href=s.git, target="_blank")= s.git.substring(19).split(".git")[0]
+                      a(href=s.git, target="_blank", onclick="event.stopPropagation();")= s.git.substring(19).split(".git")[0]
       else
         .container
           p There are no students
