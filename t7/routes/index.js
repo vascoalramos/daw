@@ -26,11 +26,16 @@ router.get("/students/:id", (req, res) => {
     student
         .fetch(studentId)
         .then((data) => {
-            res.render("studentDetail", { student: data });
+            res.render("student-detail", { student: data });
         })
         .catch((err) => {
             res.render("error", { error: err });
         });
+});
+
+/* GET new student form page. */
+router.get("/students/register", (req, res) => {
+    res.render("new-student");
 });
 
 module.exports = router;
