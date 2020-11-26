@@ -1,35 +1,172 @@
 extends layout
 
 block content
-  .container
-    .text-center
-      h2 Students List (DAW2020)
+  if view === "students_list"
+    .container
+      .text-center
+        h2 Students List (DAW2020)
 
-      if list.length > 0
-        .container.py-5
-          table.table.table-borderless.table-hover
-            thead.thead-dark
-              tr
-                th Number
-                th Name
-                th Git
-                th
-                th
-            tbody
-              each s in list
-                tr.student-row(onclick= `window.location = "/students/${s.numero}"`)
-                  td= s.numero
-                  td= s.nome
-                  td
-                    if (s.git && s.git !== "") 
-                      a(href=s.git, target="_blank", onclick="event.stopPropagation();")= s.git.substring(19).split(".git")[0]
-                    else
-                  td.edit-student-icon(onclick=`event.stopPropagation();window.location = "/students/${s.numero}/edit";`)
-                    i.far.fa-edit(style="color: orange;")
-                  td.delete-student-icon(onclick=`event.stopPropagation();deleteStudent("${s.numero}")`)
-                    i.far.fa-trash-alt(style="color: red;")
+        if list.length > 0
+          .container.py-5
+            table.table.table-borderless.table-hover
+              thead.thead-dark
+                tr
+                  th Number
+                  th Name
+                  th Git
+                  th
+                  th
+              tbody
+                each s in list
+                  tr.student-row(onclick= `window.location = "/students/${s.numero}"`)
+                    td= s.numero
+                    td= s.nome
+                    td
+                      if (s.git && s.git !== "") 
+                        a(href=s.git, target="_blank", onclick="event.stopPropagation();")= s.git.substring(19).split(".git")[0]
+                      else
+                    td.edit-student-icon(onclick=`event.stopPropagation();window.location = "/students/${s.numero}/edit";`)
+                      i.far.fa-edit(style="color: orange;")
+                    td.delete-student-icon(onclick=`event.stopPropagation();deleteStudent("${s.numero}")`)
+                      i.far.fa-trash-alt(style="color: red;")
+        else
+          .container.py-5.my-5
+            h5 There are no students...
+  
+  else if view === "student_detail"
+    .container
+    .text-center
+      h2 Student Detail [#{student.numero}] (DAW2020)
+
+      .container.my-3
+        .col-12
+          span.mr-5(onclick=`event.stopPropagation();window.location = "/students/${student.numero}/edit";`)
+            i.edit-student-icon.far.fa-edit.fa-lg(style="color: orange;")
+          span(onclick=`event.stopPropagation();deleteStudent("${student.numero}")`)
+            i.delete-student-icon.far.fa-trash-alt.fa-lg(style="color: red; ")
+
+      if (student.photo && student.photo !== "") 
+        .container.my-3
+          img.rounded.mx-auto.d-block(src=`/images/uploads/${student.photo}`, style="width: 15em;")
       else
-        .container.py-5.my-5
-          h5 There are no students...
+
+      .card.my-5.bg-light
+        .card-body.p-4
+          .row
+            .col-3
+              h4
+                b #{student.numero}
+            .col-9 
+              .span
+                h4 #{student.nome}
+                  if (student.git && student.git !== "") 
+                    a.pl-4.git-icon(href= student.git, target="_blank", style="text-decoration: none;")
+                      i.fab.fa-github
+                  else
+
+      .my-5
+        h4
+          b TPCs Rate
+        .gauge-container(id="tpc-gauge", style="max-width: 50%; margin: auto; margin-top: -3%")
+
+  else if view === "new_student"
+    .container
+    .text-center
+      h2 New Student (DAW2020)
+
+    .card.my-5.text-center.border-danger(id="general-error", style="display: none;")
+      .card-body
+        span(style="color: red;")
+    
+    .mb-5
+      form(id="new-student-form", enctype="multipart/form-data")
+        .custom-file
+          label.custom-file-label(for="photo") Select your profile picture:
+          input.custom-file-input(type="file", id="photo", name="photo")
+        .form-row 
+          .col-7
+            label(for="name")
+            input.form-control(type="text", id="name", name="nome", placeholder="Name...", required)
+            p(id="name-error", style="color: red; display: none") Name is required 
+          .col
+            label(for="number")
+            input.form-control(type="text", id="number", name="numero", placeholder="Number...", required)
+            p(id="number-error", style="color: red; display: none") Number is required 
+        .form-group
+          label(for="git")
+          .input-group.mb-2
+            .input-group-prepend
+              .input-group-text github.com/
+            input.form-control(type="text", id="git", name="git", placeholder="Git repo...")
+
+        div.mb-5
+          h5.pt-3.pt-2 TPCs Done
+          - let i = 1;
+
+            while i < 9
+              .custom-control.custom-checkbox.custom-control-inline
+                input.custom-control-input(type="checkbox", id=`tpc${i}`, name=`tpc${i}`)
+                label.custom-control-label(for=`tpc${i}`) TPC #{i}
+                - i++
+        
+        div.text-center
+          button.btn.btn-primary(type="button", onclick="registerStudent();") Register student
+
+  else if view === "edit_student"
+    .container
+    .text-center
+      h2 Edit Student [#{student.numero}] (DAW2020)
+
+    .card.my-5.text-center.border-danger(id="general-error", style="display: none;")
+      .card-body
+        span(style="color: red;")
+    
+    .mb-5
+      form(id="edit-student-form", enctype="multipart/form-data")
+        .custom-file
+          label.custom-file-label(for="photo") Update your profile picture:
+          input.custom-file-input(type="file", id="photo", name="photo")
+        .form-row
+          .col-7
+            label(for="name")
+            input.form-control(type="text", id="name", name="nome", placeholder="Name...", value=`${student.nome}`, required)
+            p(id="name-error", style="color: red; display: none") Name is required 
+          .col
+            label(for="number")
+            input.form-control(type="text", id="number", name="numero", placeholder="Number...", value=`${student.numero}`, required)
+            p(id="number-error", style="color: red; display: none") Number is required 
+        .form-group
+          label(for="git")
+          .input-group.mb-2
+            .input-group-prepend
+              .input-group-text github.com/
+            if student.git
+              - let git = student.git.substring(19).split(".git")[0];
+              input.form-control(type="text", id="git", name="git", placeholder="Git repo...", value=`${git}`)
+            else
+              input.form-control(type="text", id="git", name="git", placeholder="Git repo...")
+
+        div.mb-5
+          h5.pt-3.pt-2 TPCs Done
+          - let i = 1;
+
+            while i < 9
+              if student.tpc[i - 1] === 1
+                .custom-control.custom-checkbox.custom-control-inline
+                  input.custom-control-input(type="checkbox", id=`tpc${i}`, name=`tpc${i}`, checked)
+                  label.custom-control-label(for=`tpc${i}`) TPC #{i}
+              else
+                .custom-control.custom-checkbox.custom-control-inline
+                  input.custom-control-input(type="checkbox", id=`tpc${i}`, name=`tpc${i}`)
+                  label.custom-control-label(for=`tpc${i}`) TPC #{i}
+              - i++
+        
+        div.text-center
+          button.btn.btn-primary(type="button", onclick=`updateStudent("${student.numero}");`) Update student
 
   script(src="/javascripts/galunos.js")
+  if view === "student_detail"
+    script(src="/javascripts/gauge.min.js")
+    script(src="/javascripts/myGauge.js")
+    script.
+      tpcsGauge(new Array(!{student.tpc}));

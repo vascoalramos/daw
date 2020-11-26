@@ -27,7 +27,7 @@ router.get("/students", (req, res) => {
     student
         .list()
         .then((data) => {
-            res.render("students", { list: data });
+            res.render("students", { view: "students_list", list: data });
         })
         .catch((err) => {
             res.render("error", { error: err });
@@ -36,7 +36,7 @@ router.get("/students", (req, res) => {
 
 /* GET new student form page. */
 router.get("/students/register", (req, res) => {
-    res.render("new-student");
+    res.render("students", { view: "new_student" });
 });
 
 /* GET student page. */
@@ -46,7 +46,7 @@ router.get("/students/:id", (req, res) => {
     student
         .fetch(studentId)
         .then((data) => {
-            res.render("student-detail", { student: data });
+            res.render("students", { view: "student_detail", student: data });
         })
         .catch((err) => {
             res.render("error", { error: err });
@@ -59,7 +59,7 @@ router.get("/students/:id/edit", (req, res) => {
     student
         .fetch(studentId)
         .then((data) => {
-            res.render("edit-student", { student: data });
+            res.render("students", { view: "edit_student", student: data });
         })
         .catch((err) => {
             res.render("error", { error: err });
