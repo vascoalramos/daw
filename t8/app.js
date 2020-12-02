@@ -2,20 +2,9 @@ const createError = require("http-errors");
 const express = require("express");
 const path = require("path");
 const logger = require("morgan");
-const mongoose = require("mongoose");
 
-// set up default mongoose connection
-const mongoDB = "mongodb://localhost/DAW2020";
-mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
-
-// get the default connection
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "MongoDB connection error!"));
-db.once("open", function () {
-    console.log("Connected to MongoDB successfully!");
-});
-
-const indexRouter = require("./routes/index");
+const viewRouter = require("./routes/index");
+const apiRouter = require("./routes/api");
 
 const app = express();
 
@@ -28,7 +17,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
+app.use("/", viewRouter);
+app.use("/api", apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

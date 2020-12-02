@@ -1,14 +1,14 @@
 const express = require("express");
-const router = express.Router();
 const multer = require("multer");
 const path = require("path");
+const router = express.Router();
 
-const student = require("../controllers/student");
-const utils = require("../utils");
+const controller = require("../controllers/file");
+const templates = require("../routes/html-templates");
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, path.join(__dirname, "../public/images/uploads/"));
+        cb(null, path.join(__dirname, "../uploads/"));
     },
 
     filename: function (req, file, cb) {
@@ -16,168 +16,26 @@ const storage = multer.diskStorage({
     },
 });
 
-/* GET home page. */
+const upload = multer({ storage: storage });
+
 router.get("/", (req, res) => {
-    res.render("index", { title: "Express" });
+    let d = new Date().toISOString().substr(0, 16);
+    let files = controller.list();
+    res.writeHead(200, { "Content-Type": "text/html;charset=utf-8" });
+    res.write(templates.fileList(files, d));
+    res.end();
 });
 
-/* GET students page. */
-router.get("/students", (req, res) => {
-    student
-        .list()
-        .then((data) => {
-            res.render("students", { view: "students_list", list: data });
-        })
-        .catch((err) => {
-            res.render("error", { error: err });
-        });
+router.get("/files/upload", (req, res) => {
+    let d = new Date().toISOString().substr(0, 16);
+    res.writeHead(200, { "Content-Type": "text/html;charset=utf-8" });
+    res.write(templates.fileForm(d));
+    res.end();
 });
 
-/* GET new student form page. */
-router.get("/students/register", (req, res) => {
-    res.render("students", { view: "new_student" });
-});
-
-/* GET student page. */
-router.get("/students/:id", (req, res) => {
-    let studentId = req.params.id;
-
-    student
-        .fetch(studentId)
-        .then((data) => {
-            res.render("students", { view: "student_detail", student: data });
-        })
-        .catch((err) => {
-            res.render("error", { error: err });
-        });
-});
-
-/* GET update student form page. */
-router.get("/students/:id/edit", (req, res) => {
-    let studentId = req.params.id;
-    student
-        .fetch(studentId)
-        .then((data) => {
-            res.render("students", { view: "edit_student", student: data });
-        })
-        .catch((err) => {
-            res.render("error", { error: err });
-        });
-});
-
-/* POST new student. */
-router.post("/students", (req, res) => {
-    let upload = multer({ storage: storage, fileFilter: utils.imageFilter }).single("photo");
-
-    upload(req, res, (err) => {
-        if (req.fileValidationError) {
-            res.render("error", { error: err });
-        } else if (err instanceof multer.MulterError) {
-            res.render("error", { error: err });
-        } else if (err) {
-            res.render("error", { error: err });
-        }
-
-        let data = req.body;
-
-        if (req.file) {
-            data.photo = req.file.filename;
-        }
-
-        data.tpc = JSON.parse(data.tpc);
-
-        student
-            .check(data.numero)
-            .then((numberOfStudents) => {
-                if (numberOfStudents === 0) {
-                    student
-                        .insert(data)
-                        .then(() => {
-                            res.status(201).end();
-                        })
-                        .catch((err) => {
-                            res.render("error", { error: err });
-                        });
-                } else {
-                    res.status(400).json({ error: `Student with number: ${data.numero} already exists!` });
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-                res.render("error", { error: err });
-            });
-    });
-});
-
-/* DELETE student. */
-router.delete("/students/:id", (req, res) => {
-    let studentId = req.params.id;
-
-    student
-        .check(studentId)
-        .then((numberOfStudents) => {
-            if (numberOfStudents !== 0) {
-                student
-                    .delete(studentId)
-                    .then(() => {
-                        res.status(200).end();
-                    })
-                    .catch((err) => {
-                        res.render("error", { error: err });
-                    });
-            } else {
-                res.status(400).json({ error: `Student with number: ${studentId} does not exist!` });
-            }
-        })
-        .catch((err) => {
-            console.log(err);
-            res.render("error", { error: err });
-        });
-});
-
-/* PUT edit student. */
-router.put("/students/:id", (req, res) => {
-    let studentId = req.params.id;
-    let upload = multer({ storage: storage, fileFilter: utils.imageFilter }).single("photo");
-
-    upload(req, res, (err) => {
-        if (req.fileValidationError) {
-            res.render("error", { error: err });
-        } else if (err instanceof multer.MulterError) {
-            res.render("error", { error: err });
-        } else if (err) {
-            res.render("error", { error: err });
-        }
-
-        let data = req.body;
-
-        if (req.file) {
-            data.photo = req.file.filename;
-        }
-
-        data.tpc = JSON.parse(data.tpc);
-
-        student
-            .check(studentId)
-            .then((numberOfStudents) => {
-                if (numberOfStudents !== 0) {
-                    student
-                        .update(studentId, data)
-                        .then(() => {
-                            res.status(200).end();
-                        })
-                        .catch((err) => {
-                            res.render("error", { error: err });
-                        });
-                } else {
-                    res.status(400).json({ error: `Student with number: ${studentId} does not exist!` });
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-                res.render("error", { error: err });
-            });
-    });
+router.post("/files", upload.single("myFile"), (req, res) => {
+    controller.insertOne(req);
+    res.redirect("/");
 });
 
 module.exports = router;
