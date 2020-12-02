@@ -3,7 +3,7 @@ const jsonfile = require("jsonfile");
 const fileDB = "./db.json";
 
 module.exports.list = () => {
-    return jsonfile.readFileSync(fileDB);
+    return jsonfile.readFile(fileDB);
 };
 
 module.exports.insertOne = (req) => {
@@ -18,5 +18,5 @@ module.exports.insertOne = (req) => {
     };
     files.push(fileObject);
 
-    jsonfile.writeFile(fileDB, files);
+    return jsonfile.writeFile(fileDB, files);
 };

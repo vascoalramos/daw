@@ -20,10 +20,14 @@ const upload = multer({ storage: storage });
 
 router.get("/", (req, res) => {
     let d = new Date().toISOString().substr(0, 16);
-    let files = controller.list();
-    res.writeHead(200, { "Content-Type": "text/html;charset=utf-8" });
-    res.write(templates.fileList(files, d));
-    res.end();
+    controller
+        .list()
+        .then((data) => {
+            res.render("gfiles", { list: data, view: "files_list" });
+        })
+        .catch((error) => {
+            res.status(500).jsonp(error);
+        });
 });
 
 router.get("/files/upload", (req, res) => {
@@ -34,8 +38,14 @@ router.get("/files/upload", (req, res) => {
 });
 
 router.post("/files", upload.single("myFile"), (req, res) => {
-    controller.insertOne(req);
-    res.redirect("/");
+    controller
+        .insertOne(req)
+        .then(() => {
+            res.redirect("/");
+        })
+        .catch((error) => {
+            res.status(500).jsonp(error);
+        });
 });
 
 module.exports = router;
