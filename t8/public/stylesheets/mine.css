@@ -1,0 +1,25 @@
+footer {
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, 0);
+    bottom: 0;
+    width: 100%;
+}
+
+.student-row:hover {
+    cursor: pointer;
+}
+
+.git-icon {
+    color: black;
+}
+
+.card:hover {
+    box-shadow: 0 0 20px rgba(33, 33, 33, 0.2);
+}
+
+.delete-student-icon:hover,
+.edit-student-icon:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pr SYSTEM "pr.dtd">
+<pr>
+    <meta>
+        <key>daw_t7</key>
+        <title>Criação de um servidor em Express.js para servir numa SPA conteúdo guardado numa base de dados MongoDB</title>
+        <subtitle>Relatório produzido no contexto dos trabalhos práticos da cadeira de DAW do MEI 2020/21</subtitle>
+        <bdate>25 de Novembro de 2020</bdate>
+        <edate>01 de Dezembro de 2020</edate>
+        <supervisor url="http://www4.di.uminho.pt/~jcr">José Carlos Ramalho</supervisor>
+    </meta>
+    <team>
+        <member id="PG42852">
+            <name>Vasco António Lopes Ramos</name>
+            <email>vascoalramos@gmail.com</email>
+            <link url="https://vascoalramos.me"></link>
+        </member>
+    </team>
+    <abstract>
+        <p>
+            O sétimo trabalho prático de casa tinha como objetivo criar um servidor em <i>Express.js</i> para servir um gestor de alunos (Galunos) na forma de
+            uma <i>SPA (Single Page Application)</i>. Para o efeito, construi-se o servidor em <i>Express.js</i> capaz de se ligar a uma instância de MongoDB e 
+            fazer as <i>queries</i> necessárias ao sistema. Para contrução de interfaces usou-se o motor de <i>templates <b>PUG</b></i>, onde se desenvolveu toda
+            a interface num só ficheiro através de conceitos como <i>Conditional Rendering</i>.
+        </p>
+    </abstract>
+    <deliverables>
+        <link url="app.js">Ponto de entrado ao servidor aplicacional em Express.js</link>
+        <link url="views/">Pasta com as views (templates) definidos em PUG</link>
+        <link url="routes/">Pasta com as rotas de resposta do sistema</link>
+        <link url="controllers/">Pasta com o "middleware" de comunicação com a BD e execução de queries</link>
+        <link url="models/">Pasta com os modelos definifos em Mongoose relativos ao esquema de dados do sistema, em MongoDB</link>
+    </deliverables>
+</pr>
