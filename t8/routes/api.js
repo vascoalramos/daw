@@ -5,7 +5,6 @@ const multer = require("multer");
 const router = express.Router();
 
 const controller = require("../controllers/file");
-const { PassThrough } = require("stream");
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
