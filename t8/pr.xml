@@ -2,11 +2,11 @@
 <!DOCTYPE pr SYSTEM "pr.dtd">
 <pr>
     <meta>
-        <key>daw_t7</key>
-        <title>Criação de um servidor em Express.js para servir numa SPA conteúdo guardado numa base de dados MongoDB</title>
+        <key>daw_t8</key>
+        <title>Criação de um servidor em Express.js para permitir upload, consulta e download de ficheiros</title>
         <subtitle>Relatório produzido no contexto dos trabalhos práticos da cadeira de DAW do MEI 2020/21</subtitle>
-        <bdate>25 de Novembro de 2020</bdate>
-        <edate>01 de Dezembro de 2020</edate>
+        <bdate>02 de Dezembro de 2020</bdate>
+        <edate>08 de Dezembro de 2020</edate>
         <supervisor url="http://www4.di.uminho.pt/~jcr">José Carlos Ramalho</supervisor>
     </meta>
     <team>
@@ -18,17 +18,18 @@
     </team>
     <abstract>
         <p>
-            O sétimo trabalho prático de casa tinha como objetivo criar um servidor em <i>Express.js</i> para servir um gestor de alunos (Galunos) na forma de
-            uma <i>SPA (Single Page Application)</i>. Para o efeito, construi-se o servidor em <i>Express.js</i> capaz de se ligar a uma instância de MongoDB e 
-            fazer as <i>queries</i> necessárias ao sistema. Para contrução de interfaces usou-se o motor de <i>templates <b>PUG</b></i>, onde se desenvolveu toda
-            a interface num só ficheiro através de conceitos como <i>Conditional Rendering</i>.
+            O oitavo trabalho prático de casa tinha como objetivo exender o sistema de gestão de ficheiros desenvolvido na aula TP8.
+        </p>
+        <p>
+            O objetivo da extensão era permitir <i>upload</i> de múltiplos ficheiros dinamicamente, isto é, permitir upload 1, 2, 3, 4, X ficheiros.
+            Para isso foi necessário adicionar <i>file inputs</i> dinamicamente conforme o utiizador fosse desejando e, do lado do servidor fazer as
+            alterações necessárias para conseguir tratar um pedido com múltiplos ficheiros, ao invés de apenas um ficheiro como se tinha feito na aula.
         </p>
     </abstract>
     <deliverables>
         <link url="app.js">Ponto de entrado ao servidor aplicacional em Express.js</link>
         <link url="views/">Pasta com as views (templates) definidos em PUG</link>
         <link url="routes/">Pasta com as rotas de resposta do sistema</link>
-        <link url="controllers/">Pasta com o "middleware" de comunicação com a BD e execução de queries</link>
-        <link url="models/">Pasta com os modelos definifos em Mongoose relativos ao esquema de dados do sistema, em MongoDB</link>
+        <link url="controllers/">Pasta com o "middleware" de comunicação com a diretoria de ficheiros e a BD em JSON</link>
     </deliverables>
 </pr>
