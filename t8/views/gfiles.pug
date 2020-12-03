@@ -39,41 +39,22 @@ block content
             
 
   
-  else if view === "student_detail"
+  else if view === "upload"
     .container
-    .text-center
-      h2 Student Detail [#{student.numero}] (DAW2020)
+      .text-center
+        h2 Files Upload (DAW2020)
 
-      .container.my-3
-        .col-12
-          span.mr-5(onclick=`event.stopPropagation();window.location = "/students/${student.numero}/edit";`)
-            i.edit-student-icon.far.fa-edit.fa-lg(style="color: orange;")
-          span(onclick=`event.stopPropagation();deleteStudent("${student.numero}")`)
-            i.delete-student-icon.far.fa-trash-alt.fa-lg(style="color: red; ")
+        form(action="/api/files" method="POST", enctype="multipart/form-data")
+          .row.mb-3
+            label(for="desc") Description:
+            input.form-control(type="text", name="desc", required)
 
-      if (student.photo && student.photo !== "") 
-        .container.my-3
-          img.rounded.mx-auto.d-block(src=`/images/uploads/${student.photo}`, style="width: 15em;")
-      else
+          .row.mb-3
+            .custom-file
+              label.custom-file-label(for="photo") Select file
+              input.custom-file-input(type="file", id="photo", name="file")
 
-      .card.my-5.bg-light
-        .card-body.p-4
-          .row
-            .col-3
-              h4
-                b #{student.numero}
-            .col-9 
-              .span
-                h4 #{student.nome}
-                  if (student.git && student.git !== "") 
-                    a.pl-4.git-icon(href= student.git, target="_blank", style="text-decoration: none;")
-                      i.fab.fa-github
-                  else
-
-      .my-5
-        h4
-          b TPCs Rate
-        .gauge-container(id="tpc-gauge", style="max-width: 50%; margin: auto; margin-top: -3%")
+          button.btn.btn-primary(type="submit") Submit
 
   else if view === "new_student"
     .container
