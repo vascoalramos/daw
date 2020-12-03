@@ -36,8 +36,6 @@ block content
             button.close(type="button", data-dismiss="modal", aria-label="Close")
               span(aria-hidden="true") &times;
             div(id="imageContent")
-            
-
   
   else if view === "upload"
     .container
@@ -45,108 +43,16 @@ block content
         h2 Files Upload (DAW2020)
 
         form(action="/api/files" method="POST", enctype="multipart/form-data")
-          .row.mb-3
-            label(for="desc") Description:
-            input.form-control(type="text", name="desc", required)
+          .container(id="fileInputGroup")
+            .my-3.p-4.border.rounded
+              .row.mb-3
+                label(for="desc") Description:
+                input.form-control(type="text", name="desc", required)
 
-          .row.mb-3
-            .custom-file
-              label.custom-file-label(for="photo") Select file
-              input.custom-file-input(type="file", id="photo", name="file")
+              .row.mb-3
+                .custom-file
+                  label.custom-file-label(for="file") Select file
+                  input.custom-file-input(type="file", name="file", required)
 
-          button.btn.btn-primary(type="submit") Submit
-
-  else if view === "new_student"
-    .container
-    .text-center
-      h2 New Student (DAW2020)
-
-    .card.my-5.text-center.border-danger(id="general-error", style="display: none;")
-      .card-body
-        span(style="color: red;")
-    
-    .mb-5
-      form(id="new-student-form", enctype="multipart/form-data")
-        .custom-file
-          label.custom-file-label(for="photo") Select your profile picture:
-          input.custom-file-input(type="file", id="photo", name="photo")
-        .form-row 
-          .col-7
-            label(for="name")
-            input.form-control(type="text", id="name", name="nome", placeholder="Name...", required)
-            p(id="name-error", style="color: red; display: none") Name is required 
-          .col
-            label(for="number")
-            input.form-control(type="text", id="number", name="numero", placeholder="Number...", required)
-            p(id="number-error", style="color: red; display: none") Number is required 
-        .form-group
-          label(for="git")
-          .input-group.mb-2
-            .input-group-prepend
-              .input-group-text github.com/
-            input.form-control(type="text", id="git", name="git", placeholder="Git repo...")
-
-        div.mb-5
-          h5.pt-3.pt-2 TPCs Done
-          - let i = 1;
-
-            while i < 9
-              .custom-control.custom-checkbox.custom-control-inline
-                input.custom-control-input(type="checkbox", id=`tpc${i}`, name=`tpc${i}`)
-                label.custom-control-label(for=`tpc${i}`) TPC #{i}
-                - i++
-        
-        div.text-center
-          button.btn.btn-primary(type="button", onclick="registerStudent();") Register student
-
-  else if view === "edit_student"
-    .container
-    .text-center
-      h2 Edit Student [#{student.numero}] (DAW2020)
-
-    .card.my-5.text-center.border-danger(id="general-error", style="display: none;")
-      .card-body
-        span(style="color: red;")
-    
-    .mb-5
-      form(id="edit-student-form", enctype="multipart/form-data")
-        .custom-file
-          label.custom-file-label(for="photo") Update your profile picture:
-          input.custom-file-input(type="file", id="photo", name="photo")
-        .form-row
-          .col-7
-            label(for="name")
-            input.form-control(type="text", id="name", name="nome", placeholder="Name...", value=`${student.nome}`, required)
-            p(id="name-error", style="color: red; display: none") Name is required 
-          .col
-            label(for="number")
-            input.form-control(type="text", id="number", name="numero", placeholder="Number...", value=`${student.numero}`, required)
-            p(id="number-error", style="color: red; display: none") Number is required 
-        .form-group
-          label(for="git")
-          .input-group.mb-2
-            .input-group-prepend
-              .input-group-text github.com/
-            if student.git
-              - let git = student.git.substring(19).split(".git")[0];
-              input.form-control(type="text", id="git", name="git", placeholder="Git repo...", value=`${git}`)
-            else
-              input.form-control(type="text", id="git", name="git", placeholder="Git repo...")
-
-        div.mb-5
-          h5.pt-3.pt-2 TPCs Done
-          - let i = 1;
-
-            while i < 9
-              if student.tpc[i - 1] === 1
-                .custom-control.custom-checkbox.custom-control-inline
-                  input.custom-control-input(type="checkbox", id=`tpc${i}`, name=`tpc${i}`, checked)
-                  label.custom-control-label(for=`tpc${i}`) TPC #{i}
-              else
-                .custom-control.custom-checkbox.custom-control-inline
-                  input.custom-control-input(type="checkbox", id=`tpc${i}`, name=`tpc${i}`)
-                  label.custom-control-label(for=`tpc${i}`) TPC #{i}
-              - i++
-        
-        div.text-center
-          button.btn.btn-primary(type="button", onclick=`updateStudent("${student.numero}");`) Update student
+          input.btn.btn-secondary.mr-5(type="button", onclick="addFileInput()", value="+1")
+          input.btn.btn-lg.btn-primary(type="submit", value="Submit")

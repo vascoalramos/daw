@@ -25,3 +25,21 @@ let showImage = (name, type) => {
     $("#imageContent").empty();
     $("#imageContent").append(fileObj, download);
 };
+
+let addFileInput = () => {
+    let fileInput = `
+        <div class="my-3 p-4 border rounded">
+            <div class="row mb-3">
+                <label for="desc">Description:</label>
+                <input class="form-control" type="text" name="desc" required="">
+            </div>
+            <div class="row mb-3">
+                <div class="custom-file">
+                    <label class="custom-file-label" for="file">Select file</label>
+                    <input class="custom-file-input" type="file" name="file" required="">
+                </div>
+            </div>
+        </div>
+    `;
+    $("#fileInputGroup").append(fileInput);
+};

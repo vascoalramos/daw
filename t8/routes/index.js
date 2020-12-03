@@ -10,7 +10,7 @@ router.get("/", (req, res) => {
             res.render("gfiles", { list: data, view: "files_list" });
         })
         .catch((error) => {
-            res.status(500).jsonp(error);
+            res.render("error", { error: err });
         });
 });
 

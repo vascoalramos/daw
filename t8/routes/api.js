@@ -5,6 +5,7 @@ const multer = require("multer");
 const router = express.Router();
 
 const controller = require("../controllers/file");
+const { PassThrough } = require("stream");
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -42,15 +43,35 @@ router.get("/files/:fname/download", (req, res) => {
 });
 
 /* POST file. */
-router.post("/files", upload.single("file"), (req, res) => {
-    controller
-        .insertOne(req)
-        .then(() => {
-            res.redirect("/");
-        })
-        .catch((error) => {
-            res.status(500).jsonp(error);
-        });
+router.post("/files", upload.array("file"), (req, res) => {
+    let nOfFiles = req.files.length;
+    let nOfDescriptions = req.body.desc.length;
+
+    if (Array.isArray(nOfDescriptions) && nOfFiles !== nOfDescriptions) {
+        return res.status(400).jsonp({ message: "Number of files must be equal to number of descriptions" });
+    }
+
+    if (nOfFiles === 0) {
+        res.status(400).jsonp({ message: "Must, at least, be sent 1 file and 1 description!" });
+    } else if (nOfFiles === 1) {
+        controller
+            .insertOne(req.files[0], req.body)
+            .then(() => {
+                res.redirect("/");
+            })
+            .catch((error) => {
+                res.status(500).jsonp(error);
+            });
+    } else {
+        controller
+            .insertMany(req.files, req.body.desc)
+            .then(() => {
+                res.redirect("/");
+            })
+            .catch((error) => {
+                res.status(500).jsonp(error);
+            });
+    }
 });
 
 module.exports = router;
