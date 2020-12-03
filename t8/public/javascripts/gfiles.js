@@ -7,14 +7,14 @@ let showImage = (name, type) => {
     }
 
     let fileObj = `
-        <div class="w3-row w3-margin">
-            <div class="w3-col s6">
+        <div class="row m-3">
+            <div class="col-6">
                 ${file}
             </div>
-            <div class="w3-col s6 w3-border">
-                <div class="w3-row w3-margin">
-                    <p>Filename: ${name}</p>
-                    <p>File Type: ${type}</p>
+            <div class="col-6 border">
+                <div class="row m-2">
+                    <p><b>Filename:</b> ${name}</p>
+                    <p><b>File Type:</b> ${type}</p>
                 </div>
             </div>
         </div>
@@ -22,7 +22,6 @@ let showImage = (name, type) => {
 
     let download = $(`<div><a href="api/files/${name}/download">Download</a></div>`);
 
-    $("#display").empty();
-    $("#display").append(fileObj, download);
-    $("#display").modal();
+    $("#imageContent").empty();
+    $("#imageContent").append(fileObj, download);
 };

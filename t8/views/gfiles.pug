@@ -18,7 +18,7 @@ block content
                   th Type
               tbody
                 each f in list
-                  tr(onclick= `showImage("${f.name}", "${f.mimetype}")`)
+                  tr(onclick= `showImage("${f.name}", "${f.mimetype}")`, data-toggle="modal", data-target="#imageModal")
                     td= f.date
                     td= f.name
                     td= f.desc
@@ -29,7 +29,15 @@ block content
           .container.py-5.my-5
             h5 There are no files...
 
-    .modal(id="display")
+    .modal.fade(id="imageModal", tabindex="-1")
+      .modal-dialog.modal-dialog-centered
+        .modal-content
+          .modal-body
+            button.close(type="button", data-dismiss="modal", aria-label="Close")
+              span(aria-hidden="true") &times;
+            div(id="imageContent")
+            
+
   
   else if view === "student_detail"
     .container
